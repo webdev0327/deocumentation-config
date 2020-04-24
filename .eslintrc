@@ -1,0 +1,20 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {}
+  },
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "array-bracket-spacing": 2,
+    "arrow-spacing": 2,
+    "camelcase": 2,
+    "newline-before-return": 2,
+    "no-console": 1,
+    "no-debugger": 2,
+    "no-duplicate-case": 2,
+    "prefer-const": 2,
+    "prettier/prettier": ["error"]
+  }
+}
