@@ -31,6 +31,7 @@
     "commander": "^5.0.0",
     "docsify-cli": "^4.4.0",
     "handlebars": "^4.7.6",
+    "inquirer": "^7.1.0",
     "open-api-to-markdown": "barchart/open-api-to-markdown#master"
   }
 }

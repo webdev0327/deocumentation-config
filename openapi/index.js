@@ -1,10 +1,15 @@
 const fs = require('fs');
+const path = require('path');
 const openAPI2md = require('open-api-to-markdown');
 
-function getOpenAPIOutput(swaggerPath = 'swagger.yaml', docsFolder = process.cwd() + '/docs/README.md') {
+function generateDocumentation(openAPIPath, docsFolder) {
+	if (!openAPIPath || !docsFolder) {
+		return Promise.reject('OpenAPI or Docs folder not found');
+	}
+
 	return openAPI2md
 		.getOpenAPIData({
-			file: swaggerPath
+			file: openAPIPath
 		})
 		.then((templateData) => {
 			return openAPI2md
@@ -13,16 +18,14 @@ function getOpenAPIOutput(swaggerPath = 'swagger.yaml', docsFolder = process.cwd
 					separators: true
 				})
 				.then((output) => {
-					fs.writeFileSync(docsFolder, output);
+					fs.writeFileSync(path.join(docsFolder, 'content', 'API.md'), output);
 				});
 		})
 		.catch((err) => {
-			console.error(err.toString());
-
 			return err;
 		});
 }
 
 module.exports = {
-	getOpenAPIOutput
+	getOpenAPIOutput: generateDocumentation
 };

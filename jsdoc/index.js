@@ -1,3 +1,5 @@
+const path = require('path');
+
 function preparePathForDocs(path) {
 	return `/content/sdk/${path}`.toLocaleLowerCase();
 }
@@ -41,14 +43,21 @@ function generateReleaseNotes(releaseNotes = []) {
 }
 
 //TODO WIP. This code doesn't work
-function generateDocs(inputFiles = 'lib/**/*.js') {
-	global.packageName = '@barchart/marketdata-api-js';
+/**
+ *
+ * @param {Object} data
+ * @param {String} data.packageName
+ * @param {String} data.docsFolder
+ * @param {String} data.srcPath
+ * @returns {PromiseLike<any> | Promise<T>}
+ */
+function generateDocs(data) {
+	global.packageName = data.packageName;
 
-	const docDir = `${__dirname}/docs`;
-	const contentDir = `${docDir}/content`;
-	const conceptsDir = `${contentDir}/concepts`;
-	const releasesDir = `${contentDir}/releases`;
-	const sdkDir = `${contentDir}/sdk`;
+	const contentDir = path.join(data.docsFolder, 'content');
+	const conceptsDir = path.join(contentDir, 'concepts');
+	const releasesDir = path.join(contentDir, 'releases');
+	const sdkDir = path.join(contentDir, 'sdk');
 	const template = `{{>main}}`;
 
 	let sdkReference = docsifyTemplates.sdkReference;
@@ -57,7 +66,7 @@ function generateDocs(inputFiles = 'lib/**/*.js') {
 	return jsdoc2md.clear().then(() => {
 		return jsdoc2md
 			.getTemplateData({
-				files: inputFiles
+				files: path.join(data.srcPath, '**', '*.js')
 			})
 			.then((templateData) => {
 				return templateData.reduce(

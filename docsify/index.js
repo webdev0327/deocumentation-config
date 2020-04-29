@@ -1,6 +1,7 @@
 const docsify = require('docsify-cli/lib/commands/init');
 const Handlebars = require('handlebars');
 const fs = require('fs');
+const Config = require('./config');
 
 const compileOptions = {
 	preventIndent: true,
@@ -36,12 +37,22 @@ function compilePartial(template, data = {}) {
 	return compile(data);
 }
 
-function initialize(docsFolder, name, repo, version) {
+/**
+ *
+ * @param {String} docsFolder
+ * @param {Object} data
+ * @param {String} data.name
+ * @param {String} data.version
+ * @param {String} data.description
+ * @param {String} data.repository
+ */
+function initialize(docsFolder, data) {
 	const isInited = fs.existsSync(`${docsFolder}/index.html`);
 
 	if (!isInited) {
 		generateFolderStructure(docsFolder);
 		docsify(`${docsFolder}/`, '', 'vue');
+		const config = new Config(data);
 
 		const isReadme = fs.existsSync(`${docsFolder}/README.md`);
 
@@ -51,12 +62,12 @@ function initialize(docsFolder, name, repo, version) {
 
 		registerPartials();
 
-		const indexHTML = compilePartial('{{>index}}', { name, repo });
+		const indexHTML = compilePartial('{{>index}}', { name: config.name, repo: config.repository });
 		const coverPage = compilePartial('{{>coverpage}}', {
-			name: 'name',
-			version: 'v0.0.0',
-			description: 'description'
-		}); // TODO { name, description, version}
+			name: config.name,
+			version: config.version,
+			description: config.description
+		});
 		const productOverview = compilePartial('{{>product_overview}}');
 		const quickStart = compilePartial('{{>quick_start}}');
 		const releases = compilePartial('{{>releases_notes}}');
@@ -67,7 +78,7 @@ function initialize(docsFolder, name, repo, version) {
 
 		// save templates
 		fs.writeFileSync(`${docsFolder}/index.html`, indexHTML);
-		fs.writeFileSync(`${docsFolder}/content/_coverpage.md`, coverPage);
+		fs.writeFileSync(`${docsFolder}/_coverpage.md`, coverPage);
 		fs.writeFileSync(`${docsFolder}/content/product_overview.md`, productOverview);
 		fs.writeFileSync(`${docsFolder}/content/quick_start.md`, quickStart);
 		fs.writeFileSync(`${docsFolder}/content/release_notes.md`, releases);
