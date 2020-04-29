@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+	"postinstall": "npm link",
     "docs": "docsify serve ./docs",
     "prettier": "prettier --config .prettierrc --write './**/*.js'",
     "lint": "eslint --fix --config=.eslintrc './**/*.js'"
@@ -28,7 +29,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "commander": "^5.0.0",
+    "commander": "^5.1.0",
     "docsify-cli": "^4.4.0",
     "handlebars": "^4.7.6",
     "inquirer": "^7.1.0",
