@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-	"postinstall": "npm link",
     "docs": "docsify serve ./docs",
     "prettier": "prettier --config .prettierrc --write './**/*.js'",
     "lint": "eslint --fix --config=.eslintrc './**/*.js'"
