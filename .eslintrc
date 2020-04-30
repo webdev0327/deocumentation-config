@@ -15,6 +15,7 @@
     "no-debugger": 2,
     "no-duplicate-case": 2,
     "prefer-const": 2,
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "sort-imports": [2, { "ignoreCase": true }]
   }
 }

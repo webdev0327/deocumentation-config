@@ -4,8 +4,10 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const path = require('path');
 
-const docsify = require('../docsify');
-const openapi2md = require('../openapi');
+const docsify = require('../lib/docsify');
+const openapi2md = require('../lib/openapi');
+const jsdoc = require('../lib/jsdoc');
+const pckg = require('./../package.json');
 
 const executionPath = process.cwd();
 const docsFolder = path.join(executionPath, 'docs');
@@ -14,14 +16,13 @@ const jsdocQuestion = {
 	name: 'src',
 	message: `Enter the path to the source code (${executionPath}/):`
 };
-
 const openapiQuestion = {
 	type: 'input',
 	name: 'openapi',
 	message: `Enter the path to the OpenAPI file (${executionPath}/):`
 };
 
-program.version('0.0.0'); //TODO get version from package.json
+program.version(pckg.version);
 
 program
 	.command('generate')
@@ -29,6 +30,14 @@ program
 	.option('-j, --jsdoc', 'Generate JSDoc only')
 	.option('-o, --openapi', 'Generate OpenAPI only')
 	.action(async (args) => {
+		let isJSDoc = args.jsdoc;
+		let isOpenAPI = args.openapi;
+
+		if (!isJSDoc && !isOpenAPI) {
+			isJSDoc = true;
+			isOpenAPI = true;
+		}
+
 		let packageJSONFile = path.join(executionPath, 'package.json');
 
 		let meta = getMetaFromPackage(packageJSONFile);
@@ -51,85 +60,58 @@ program
 
 		const questions = [];
 
-		const onlyJSDoc = args.jsdoc && !args.openapi;
-		const onlyOpenAPI = args.openapi && !args.jsdoc;
-
-		let mode = 'all';
-
-		if (onlyJSDoc) {
-			mode = 'jsdoc';
+		if (isJSDoc) {
+			questions.push(jsdocQuestion);
 		}
 
-		if (onlyOpenAPI) {
-			mode = 'openapi';
+		if (isOpenAPI) {
+			questions.push(openapiQuestion);
 		}
 
-		switch (mode) {
-			case 'jsdoc': {
-				questions.push(jsdocQuestion);
-				const answers = await inquirer.prompt(questions);
+		const answers = await inquirer.prompt(questions);
 
-				if (!answers.src) {
-					exit('The path to the source code not found');
-				}
+		docsify.initialize(docsFolder, meta);
 
-				//TODO Check the path to a source code
-				//TODO Generate JSDoc
-
-				docsify.initialize(docsFolder, meta);
-				break;
+		if (isJSDoc) {
+			if (!answers.src) {
+				exit('The path to the source code not found');
 			}
-			case 'openapi': {
-				questions.push(openapiQuestion);
-				const answers = await inquirer.prompt(questions);
 
-				if (!answers.openapi) {
-					exit('The path to the OpenAPI file not found');
-				}
+			const srcPath = path.join(executionPath, answers.src);
 
-				const openAPIPath = path.join(executionPath, answers.openapi);
+			const isSourceFolderExist = fs.existsSync(srcPath);
 
-				const isExist = fs.existsSync(openAPIPath);
+			if (!isSourceFolderExist) {
+				exit('The path to the source code not found');
+			}
 
-				if (!isExist) {
-					exit('The path to the OpenAPI file not found');
-				}
-
-				docsify.initialize(docsFolder, meta);
-				openapi2md.getOpenAPIOutput(openAPIPath, docsFolder).catch((err) => {
-					exit(err);
+			await jsdoc
+				.generateDocs({
+					docsFolder: docsFolder,
+					srcPath: srcPath,
+					packageName: meta.name
+				})
+				.catch((err) => {
+					console.error(err);
 				});
-				break;
+		}
+
+		if (isOpenAPI) {
+			if (!answers.openapi) {
+				exit('The path to the OpenAPI file not found');
 			}
-			case 'all': {
-				questions.push(jsdocQuestion, openapiQuestion);
-				const answers = await inquirer.prompt(questions);
 
-				if (!answers.src) {
-					exit('The path to the source code not found');
-				}
+			const openAPIPath = path.join(executionPath, answers.openapi);
 
-				if (!answers.openapi) {
-					exit('The path to the OpenAPI file not found');
-				}
+			const isOpenAPIFileExist = fs.existsSync(openAPIPath);
 
-				const openAPIPath = path.join(executionPath, answers.openapi);
-
-				const isExist = fs.existsSync(openAPIPath);
-
-				if (!isExist) {
-					exit('The path to the OpenAPI file not found');
-				}
-
-				//TODO Check the path to a source code
-				//TODO Generate JSDoc
-
-				docsify.initialize(docsFolder, meta);
-				openapi2md.getOpenAPIOutput(openAPIPath, docsFolder).catch((err) => {
-					exit(err);
-				});
-				break;
+			if (!isOpenAPIFileExist) {
+				exit('The path to the OpenAPI file not found');
 			}
+
+			await openapi2md.getOpenAPIOutput(openAPIPath, docsFolder).catch((err) => {
+				console.error(err);
+			});
 		}
 	});
 
@@ -158,6 +140,13 @@ program
 		}
 
 		docsify.initialize(docsFolder, meta);
+	});
+
+program
+	.command('serve')
+	.description('serve documentation')
+	.action(async (args) => {
+		docsify.serve(docsFolder);
 	});
 
 /**
