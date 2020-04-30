@@ -10,7 +10,7 @@ const jsdoc = require('../lib/jsdoc');
 const pckg = require('./../package.json');
 
 const executionPath = process.cwd();
-const docsFolder = path.join(executionPath, 'docs');
+const docsFolder = path.resolve(executionPath, 'docs');
 const jsdocQuestion = {
 	type: 'input',
 	name: 'src',
@@ -38,7 +38,7 @@ program
 			isOpenAPI = true;
 		}
 
-		let packageJSONFile = path.join(executionPath, 'package.json');
+		let packageJSONFile = path.resolve(executionPath, 'package.json');
 
 		let meta = getMetaFromPackage(packageJSONFile);
 
@@ -53,7 +53,7 @@ program
 				exit('package.json not found');
 			}
 
-			packageJSONFile = path.join(process.cwd(), answer.pkg);
+			packageJSONFile = path.resolve(process.cwd(), answer.pkg);
 
 			meta = getMetaFromPackage(packageJSONFile, true);
 		}
@@ -77,7 +77,7 @@ program
 				exit('The path to the source code not found');
 			}
 
-			const srcPath = path.join(executionPath, answers.src);
+			const srcPath = path.resolve(executionPath, answers.src);
 
 			const isSourceFolderExist = fs.existsSync(srcPath);
 
@@ -101,7 +101,7 @@ program
 				exit('The path to the OpenAPI file not found');
 			}
 
-			const openAPIPath = path.join(executionPath, answers.openapi);
+			const openAPIPath = path.resolve(executionPath, answers.openapi);
 
 			const isOpenAPIFileExist = fs.existsSync(openAPIPath);
 
@@ -119,7 +119,7 @@ program
 	.command('init')
 	.description('initialize documentation structure')
 	.action(async (args) => {
-		let packageJSONFile = path.join(executionPath, 'package.json');
+		let packageJSONFile = path.resolve(executionPath, 'package.json');
 
 		let meta = getMetaFromPackage(packageJSONFile);
 
@@ -134,7 +134,7 @@ program
 				exit('package.json not found');
 			}
 
-			packageJSONFile = path.join(process.cwd(), answer.pkg);
+			packageJSONFile = path.resolve(process.cwd(), answer.pkg);
 
 			meta = getMetaFromPackage(packageJSONFile, true);
 		}
