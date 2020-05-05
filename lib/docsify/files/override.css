@@ -3,6 +3,11 @@
     margin-left: 15px;
 }
 
+.sidebar ul li {
+    font-size: 14px;
+    color: #505d6b;
+}
+
 h2#contents + ul p {
     margin: 0;
 }
