@@ -35,3 +35,7 @@ node_modules/
 #IntelliJ/Webstorm files
 .idea
 .vscode
+
+.cache
+swagger.yaml
+docs
