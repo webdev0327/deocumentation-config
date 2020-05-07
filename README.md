@@ -24,6 +24,7 @@ barchart-documentation generate
 ## init
 
 Creates `docs` folder with following structure:
+
 ```text
 ├── docs
 │   ├── content
@@ -42,6 +43,8 @@ barchart-documentation init
 
 ## serve
 
+Starts a local web server to host documentation.
+
 **Example**:
 ```bash
 barchart-documentation serve
@@ -58,7 +61,7 @@ barchart-documentation clear-cache
 
 ## clear-package-cache
 
-Clears cached paths for current package.
+Clears cached paths for the current package.
 
 **Example**:
 ```bash
