@@ -2,7 +2,7 @@
 
 > WARNING: CLI is context sensitive. All commands will be executed for the current path.
 
-CLI tools for generating documentation from JSDoc and OpenAPI files. 
+CLI for creating documentation from JSDoc or OpenAPI.
 
 ## Cache
 
