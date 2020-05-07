@@ -24,7 +24,7 @@ barchart-documentation generate
 ## init
 
 Creates `docs` folder with following structure:
-
+```text
 ├── docs
 │   ├── content
 │   │   ├── api
@@ -33,6 +33,7 @@ Creates `docs` folder with following structure:
 │   │   └── sdk
 │   ├── static
 │   └── styles
+```
 
 **Example**:
 ```bash
