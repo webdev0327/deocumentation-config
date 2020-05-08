@@ -9,6 +9,8 @@ const docsify = require('../lib/docsify');
 const openapi2md = require('../lib/openapi');
 const jsdoc = require('../lib/jsdoc');
 const pckg = require('./../package.json');
+const releases = require('../lib/releases');
+const templates = require('../lib/templates');
 
 const executionPath = process.cwd();
 const docsFolder = path.resolve(executionPath, 'docs');
@@ -32,7 +34,7 @@ program.version(pckg.version);
 
 program
 	.command('generate')
-	.description('initialize and generate documentation')
+	.description('initializes and generates documentation')
 	.action(async (args) => {
 		const cache = new Cache();
 		let packageJSONFile = path.resolve(executionPath, 'package.json');
@@ -90,6 +92,8 @@ program
 		const answers = await inquirer.prompt(questions);
 
 		docsify.initialize(docsFolder, meta);
+
+		releases.generateReleaseNotes(docsFolder);
 
 		if (steps.jsdoc) {
 			if (!answers.src && !cachedMeta.srcPath) {
@@ -175,8 +179,30 @@ program
 	});
 
 program
+	.command('releases')
+	.description('generates release notes')
+	.action(async (args) => {
+		const isReleasesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'releases'));
+		const isReleaseNotesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'release_notes.md'));
+
+		if (isReleasesExist && isReleaseNotesExist) {
+			templates.registerPartials();
+			releases.generateReleaseNotes(docsFolder);
+			console.log('Release notes was updated');
+		} else {
+			console.error(
+				`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(
+					docsFolder,
+					'content',
+					'releases'
+				)} ] folder doesn't exist`
+			);
+		}
+	});
+
+program
 	.command('init')
-	.description('initialize documentation structure')
+	.description('initializes documentation structure')
 	.action(async (args) => {
 		let packageJSONFile = path.resolve(executionPath, 'package.json');
 
@@ -203,14 +229,14 @@ program
 
 program
 	.command('serve')
-	.description('serve documentation')
+	.description('starts local web server to host documentation')
 	.action(async (args) => {
 		docsify.serve(docsFolder);
 	});
 
 program
 	.command('clear-cache')
-	.description('clear all cache')
+	.description('clears all cache')
 	.action(async (args) => {
 		const cache = new Cache();
 		cache.clear();
@@ -219,7 +245,7 @@ program
 
 program
 	.command('clear-package-cache')
-	.description('clear package cache')
+	.description('clears cache for current package')
 	.action(async (args) => {
 		let packageJSONFile = path.resolve(executionPath, 'package.json');
 
