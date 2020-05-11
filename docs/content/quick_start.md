@@ -1,6 +1,6 @@
 ## Setup
 
-This CLI has been published to the Node Package Manager (NPM). The package is named *@barchart/barchart-documentation*; install as follows:
+This CLI has been published to the Node Package Manager (NPM). The package is named `@barchart/barchart-documentation`; install as follows:
 
 ```shell script
 npm install @barchart/barchart-documentation -S
@@ -8,9 +8,9 @@ npm install @barchart/barchart-documentation -S
 
 ## How to use
 
-> WARNING: CLI is context sensitive. All commands will be executed for the current path. Learn more about [cache](#cache)
+!> WARNING: The CLI is **context sensitive**. All commands will be executed for the **current path**. 
 
-To show help, use the --help flag.
+To show help, use the `--help` flag.
 
 ```shell script
 barchart-documentation --help
@@ -37,6 +37,8 @@ barchart-documentation generate
 
 During the generation process, the CLI will ask from which sources to create documentation, and ask paths to these sources. All paths will be cached for each package so CLI will ask for them only once.
 
+!> The CLI supports generating documentation for `OpenAPI` only from `.yaml` files.
+
 ### Run documentation locally
 
 The CLI allows you to run a local web server to host documentation. By default, the web server will use port `3000`, if the port is busy, any free port will be used. 
@@ -51,8 +53,8 @@ barchart-documentation serve
 
 The CLI caches paths to source code, and an OpenAPI file of each project. To clear cache use the following commands:
 
-* `barchart-documentation clear-cache` - clears cache for all packages.
-* `barchart-documentation clear-package-cache` - clears cache for current package.
+* `barchart-documentation clear-cache` — clears cache for all packages.
+* `barchart-documentation clear-package-cache` — clears cache for current package.
 
 
 ### Deploy
