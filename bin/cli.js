@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { program } = require('commander');
-const fs = require('fs');
+const fs = require('../lib/fsSafe');
 const inquirer = require('inquirer');
 const path = require('path');
 
@@ -37,6 +37,8 @@ program
 	.description('initializes and generates documentation')
 	.action(async (args) => {
 		const cache = new Cache();
+		const questions = [];
+
 		let packageJSONFile = path.resolve(executionPath, 'package.json');
 
 		let meta = getMetaFromPackage(packageJSONFile);
@@ -59,7 +61,7 @@ program
 
 		const cachedMeta = cache.get(meta.name);
 
-		const questions = [];
+		docsify.initialize(docsFolder, meta);
 
 		const jsdocAnswer = await inquirer.prompt({
 			type: 'confirm',
@@ -69,10 +71,19 @@ program
 
 		steps.jsdoc = jsdocAnswer.jsdoc;
 
+		let sidebar = fs.readFileSync(path.resolve(docsFolder, '_sidebar.md')).toString();
+
 		if (steps.jsdoc) {
 			if (!cachedMeta.srcPath) {
 				questions.push(jsdocQuestion);
 			}
+
+			sidebar = sidebar.replace(
+				/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm,
+				'<!-- sdk_open -->\n* [SDK Reference](/content/sdk_reference)\n<!-- sdk_close -->'
+			);
+
+			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
 		}
 
 		const openAPIAnswer = await inquirer.prompt({
@@ -87,13 +98,16 @@ program
 			if (!cachedMeta.openAPIPath) {
 				questions.push(openAPIQuestion);
 			}
+
+			sidebar = sidebar.replace(
+				/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
+				'<!-- api_open -->\n* [API Reference](/content/api_reference)\n<!-- api_close -->'
+			);
+
+			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
 		}
 
 		const answers = await inquirer.prompt(questions);
-
-		docsify.initialize(docsFolder, meta);
-
-		releases.generateReleaseNotes(docsFolder);
 
 		if (steps.jsdoc) {
 			if (!answers.src && !cachedMeta.srcPath) {
@@ -176,6 +190,9 @@ program
 				}
 			}
 		}
+
+		updateSidebars(docsFolder);
+		releases.generateReleaseNotes(docsFolder);
 	});
 
 program
@@ -308,6 +325,48 @@ function getMetaFromPackage(packagePath, error = false) {
 function exit(error) {
 	console.error(error);
 	process.exit(1);
+}
+
+/**
+ * Copy sidebar to other folders.
+ *
+ * @param {string} docFolder - a path to the docs folder
+ */
+function updateSidebars(docFolder) {
+	const contentDir = path.resolve(docsFolder, 'content');
+	const conceptsDir = path.resolve(contentDir, 'concepts');
+	const releasesDir = path.resolve(contentDir, 'releases');
+
+	fs.copyFileSync(path.resolve(docFolder, '_sidebar.md'), path.resolve(contentDir, '_sidebar.md'));
+	fs.copyFileSync(path.resolve(docFolder, '_sidebar.md'), path.resolve(conceptsDir, '_sidebar.md'));
+	fs.copyFileSync(path.resolve(docFolder, '_sidebar.md'), path.resolve(releasesDir, '_sidebar.md'));
+
+	const apiSidebarPath = path.resolve(contentDir, 'api', '_sidebar.md');
+	const sdkSidebarPath = path.resolve(contentDir, 'sdk', '_sidebar.md');
+
+	const rootSidebar = fs.readFileSync(path.resolve(docFolder, '_sidebar.md')).toString();
+
+	if (fs.existsSync(apiSidebarPath)) {
+		const apiSidebarString = fs.readFileSync(apiSidebarPath).toString();
+		const apiSidebarContent = apiSidebarString.match(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm)[0];
+		const updatedSidebar = rootSidebar.replace(
+			/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
+			apiSidebarContent
+		);
+
+		fs.writeFileSync(apiSidebarPath, updatedSidebar);
+	}
+
+	if (fs.existsSync(sdkSidebarPath)) {
+		const sdkSidebarString = fs.readFileSync(sdkSidebarPath).toString();
+		const sdkSidebarContent = sdkSidebarString.match(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm)[0];
+		const updatedSidebar = rootSidebar.replace(
+			/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
+			sdkSidebarContent
+		);
+
+		fs.writeFileSync(sdkSidebarPath, updatedSidebar);
+	}
 }
 
 program.parse(process.argv);

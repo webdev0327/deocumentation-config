@@ -14,8 +14,12 @@
     "type": "git",
     "url": "git+https://github.com/barchart/barchart-documentation.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Dzmitry Afanasenka",
+    "email": "dzmitry.afanasenka@itechart-group.com",
+    "url": "http://www.barchart.com"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/barchart/barchart-documentation/issues"
   },

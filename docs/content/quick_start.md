@@ -24,16 +24,21 @@ To initialize documentation folder run the following command:
 barchart-documentation init
 ```
 
+> The `init` command is a part of the `barchart-documentation generate` command.
+
 Learn more about the documentation folder structure [here](/content/product_overview#release-notes).
 
 ### Creating documentation
 
-The CLI support JSDoc and OpenAPI specification. 
-To generate documentation from JSDoc or OpenAPI run the following command:
+The CLI support `JSDoc` and `OpenAPI` v3 specification. 
+
+To generate documentation run the following command:
 
 ```shell script
 barchart-documentation generate
 ```
+
+The `generate` command generates documentation from `JSDoc`, `OpenAPI`, and updates sidebars and compile release notes. 
 
 During the generation process, the CLI will ask from which sources to create documentation, and ask paths to these sources. All paths will be cached for each package so CLI will ask for them only once.
 
