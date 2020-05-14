@@ -11,3 +11,7 @@
 h2#contents + ul p {
     margin: 0;
 }
+
+main section.content {
+    padding-top: 0;
+}
