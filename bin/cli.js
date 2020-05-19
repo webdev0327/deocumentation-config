@@ -361,7 +361,7 @@ function updateSidebars(docFolder) {
 		const sdkSidebarString = fs.readFileSync(sdkSidebarPath).toString();
 		const sdkSidebarContent = sdkSidebarString.match(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm)[0];
 		const updatedSidebar = rootSidebar.replace(
-			/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
+			/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm,
 			sdkSidebarContent
 		);
 
