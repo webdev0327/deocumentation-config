@@ -21,10 +21,11 @@
         onlyCover: true,
         notFoundPage: true,
         subMaxLevel: 2,
+        auto2top: true,
         noCompileLinks: [
-            '/static/.*'
-        ],
-        auto2top: true
+            '/static/*.*',
+            '/*static/*.*'
+        ]
     }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

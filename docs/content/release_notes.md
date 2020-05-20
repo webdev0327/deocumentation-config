@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.1.2
+* Fixed `noCompileLinks` option for `index.html`
+
 ## 0.1.1
 * Fixed sidebar generation
 * Fixed links generation
