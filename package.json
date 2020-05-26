@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barchart/barchart-documentation.git"
+    "url": "git+https://github.com/barchart/documentation-generator.git"
   },
   "author": {
     "name": "Dzmitry Afanasenka",
@@ -21,9 +21,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/barchart/barchart-documentation/issues"
+    "url": "https://github.com/barchart/documentation-generator/issues"
   },
-  "homepage": "https://github.com/barchart/barchart-documentation#readme",
+  "homepage": "https://github.com/barchart/documentation-generator#readme",
   "devDependencies": {
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",

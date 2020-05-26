@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.1.4
+* Renamed the package name
+
 ## 0.1.3
 * Added support of `security` for an OpenAPI documentation
 

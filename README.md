@@ -1,69 +1,19 @@
-# barchart-documentation
+# @barchart/documentation-generator
 
 > WARNING: CLI is context sensitive. All commands will be executed for the current path.
 
-CLI for creating documentation from JSDoc or OpenAPI.
+**Barchart documentation CLI** allows you to create documentation from the following sources:
 
-## Cache
+* JSDoc
+* OpenAPI v3 specification
 
-CLI caches paths to source code, and an OpenAPI file of each project. To clear the cache, use the [clear-cache](#clear-cache) or [clear-package-cache](#clear-package-cache) commands.
+## Documentation
 
-## Commands
+Complete documentation for this SDK can be found here: [https://barchart.github.io/documentation-generator](https://barchart.github.io/documentation-generator)
 
-CLI provides following commands:
+### Package Managers
 
-## generate
+This library has been published as a public module to NPM as [@barchart/](https://www.npmjs.com/package/@barchart/alerts-client-js).
 
-Creates `docs` folder if it doesn't exist and generates documentation from JSDoc or OpenAPI. 
-
-**Example**:
-```bash
-barchart-documentation generate
-```
-
-## init
-
-Creates `docs` folder with following structure:
-
-```text
-├── docs
-│   ├── content
-│   │   ├── api
-│   │   ├── concepts
-│   │   ├── releases
-│   │   └── sdk
-│   ├── static
-│   └── styles
-```
-
-**Example**:
-```bash
-barchart-documentation init
-```
-
-## serve
-
-Starts a local web server to host documentation.
-
-**Example**:
-```bash
-barchart-documentation serve
-```
-
-## clear-cache
-
-Clears cached paths for each package.
-
-**Example**:
-```bash
-barchart-documentation clear-cache
-```
-
-## clear-package-cache
-
-Clears cached paths for the current package.
-
-**Example**:
-```bash
-barchart-documentation clear-package-cache
-```
+ ```sh
+ npm install @barchart/alerts-client-js -S
