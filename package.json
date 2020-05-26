@@ -1,6 +1,6 @@
 {
   "name": "@barchart/documentation-generator",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Generates documentation from JSDoc and OpenAPI.",
   "scripts": {
     "docs": "lib/docsify serve ./docs",
