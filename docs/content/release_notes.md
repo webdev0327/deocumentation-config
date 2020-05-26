@@ -1,6 +1,6 @@
 # Release Notes
 
-## 0.1.4
+## 0.1.5
 * Renamed the package name
 
 ## 0.1.3
