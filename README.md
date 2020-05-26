@@ -13,7 +13,8 @@ Complete documentation for this SDK can be found here: [https://barchart.github.
 
 ### Package Managers
 
-This library has been published as a public module to NPM as [@barchart/](https://www.npmjs.com/package/@barchart/alerts-client-js).
+This library has been published as a public module to NPM as [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator).
 
  ```sh
- npm install @barchart/alerts-client-js -S
+ npm install @barchart/documentation-generator -S
+```
