@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.1.3
+* Added support of `security` for an OpenAPI documentation
+
 ## 0.1.2
 * Fixed `noCompileLinks` option for `index.html`
 
