@@ -1,0 +1,44 @@
+{{#if parameters}}
+{{#getParameters parameters}}
+{{#if (isParametersExist headerParameters)}}
+#### Headers
+
+{{#with headerParameters}}
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{/with}}
+{{/if}}
+{{#if (isParametersExist pathParameters)}}
+#### Path Parameters
+
+{{#with pathParameters}}
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{/with}}
+{{/if}}
+{{#if (isParametersExist queryString)}}
+#### Query Parameters
+
+{{#with queryString}}
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{/with}}
+{{/if}}
+{{#if (isParametersExist cookieParameters)}}
+#### Cookies
+
+{{#with cookieParameters}}
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+
+{{/if}}
+{{/getParameters}}
+{{/if}}

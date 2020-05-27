@@ -1,0 +1,3 @@
+{{#each headers}}
+| {{toTitleCase title}} {{#if @last}}|{{/if}}{{/each}}
+{{#each headers}}| {{repeatSymbol symbol="-" count=length}} {{#if @last}}|{{/if}}{{/each}}

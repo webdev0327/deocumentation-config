@@ -1,0 +1,4 @@
+{{#if security}}
+**Security**: {{#each security}}
+{{#each this}}[{{@key}}{{#if this}}[{{#each this}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}]{{/if}}](/content/api/components?id=security{{@key}}){{#unless @../last}}, {{/unless}}{{/each}}{{/each}}
+{{/if}}

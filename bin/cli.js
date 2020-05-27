@@ -6,8 +6,8 @@ const path = require('path');
 
 const Cache = require('../lib/cache');
 const docsify = require('../lib/docsify');
-const openapi2md = require('../lib/openapi');
-const jsdoc = require('../lib/jsdoc');
+const openapi2md = require('../lib/generators/openapi');
+const jsdoc = require('../lib/generators/jsdoc');
 const pckg = require('./../package.json');
 const releases = require('../lib/releases');
 const templates = require('../lib/templates');

@@ -1,0 +1,4 @@
+{{#each data as |item|}}
+{{#each ../headers as |header|}}
+| {{{getValueFromObject object=item key=header.title}}} {{#if @last}}|{{/if}}{{/each}}
+{{/each}}

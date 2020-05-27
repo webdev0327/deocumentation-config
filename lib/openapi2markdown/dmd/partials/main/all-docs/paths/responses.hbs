@@ -1,0 +1,43 @@
+{{#if responses}}
+#### Responses
+
+{{#getResponses responses}}
+{{#each this}}
+**Status Code**: {{status}}{{#if link}} - {{link}}{{/if}}
+{{#if description}}
+
+> {{description}}
+{{/if}}
+{{#if (isParametersExist headers)}}
+
+**Response headers**:
+
+{{#with headers}}
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#unless link}}
+{{#each content}}
+
+**Content Type**: <code>{{@key}}</code>
+
+**Response Type:** {{{root.type}}}
+{{#if (isParametersExist this)}}
+    
+{{>headerRow}}
+
+{{>dataRows}}
+{{#if root.example}}
+
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/each}}
+{{/unless}}
+{{#unless @last}}{{>separator}}{{/unless}}{{/each}}{{/getResponses}}{{/if}}

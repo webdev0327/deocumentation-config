@@ -1,0 +1,133 @@
+## {{title}} 
+
+{{#each data}}
+### {{@key}} :id={{toLowerCase ../title}}{{toLowerCase @key}}
+{{#if (isSecuritySchemes ../title)}}
+{{#getSecurity this @key}}
+
+>{{description}}
+
+**Type**: {{type}}
+{{#if header}}
+    
+{{#with header}}
+#### Headers
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#if queryString}}
+
+{{#with queryString}}
+#### Query String
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#if cookie}}
+
+{{#with cookie}}
+#### Cookies
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#if urls}}
+    
+{{#with urls}}
+#### URLs
+{{#each this}}
+**{{title}}**: {{url}}
+{{/each}}
+{{/with}}
+{{/if}}
+{{#if flows}}
+{{#each flows }}
+
+#### {{title}} :id={{id}}
+{{#if scopes}}
+    
+##### Scopes:
+{{#each scopes}}
+- **{{title}}**: {{description}}
+{{/each}}
+{{/if}}
+{{#if isURL}}
+    
+##### URLs:
+{{#if authorizationUrl}}
+- **Authorization URL**: {{authorizationUrl}}
+{{/if}}
+{{#if tokenUrl}}
+- **Token URL**: {{tokenUrl}}
+{{/if}}
+{{#if refreshUrl}}
+- **Refresh URL**: {{refreshUrl}}
+{{/if}}
+{{/if}}
+{{/each}}
+{{/if}}
+{{/getSecurity}}
+{{>separator}}
+{{/if}}
+{{#if (isSchema ../title)}}
+{{#getSchema this}}
+**Type**: {{{root.type}}}
+{{#if (isParametersExist this)}}
+    
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{#if root.example}}
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/getSchema}}
+{{>separator}}
+{{/if}}
+{{#if (isResponse ../title)}}
+{{#getResponse this}}
+{{#if description}}
+> {{description}}
+
+{{/if}}
+{{#if (isParametersExist headers)}}
+**Response headers**:
+
+{{#with headers}}
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#each content}}
+{{#if (isParametersExist this)}}
+**Content Type**: <code>{{@key}}</code>
+
+**Response Type:** <code>{{{root.type}}}</code>
+
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{#if root.example}}
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/each}}
+{{/getResponse}}
+{{>separator}}
+{{/if}}
+{{/each}}

@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.2.0
+* Added `Swagger UI` for an Open API Documentation
+
 ## 0.1.5
 * Renamed the package name
 

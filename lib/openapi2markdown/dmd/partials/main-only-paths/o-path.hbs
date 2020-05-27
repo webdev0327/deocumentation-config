@@ -1,0 +1,13 @@
+{{#each verbs}}
+## {{toUpperCase verb}} {{../path}} 
+
+{{#with data}}
+> {{>description}}
+{{>summary}}
+{{>security}}
+{{>o-parameters}}
+{{>o-requestBody}}
+{{>o-responses}}
+{{/with}}
+{{>separator}}
+{{/each}}

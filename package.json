@@ -32,12 +32,21 @@
   },
   "dependencies": {
     "@barchart/dmd-plugin": "git+https://github.com/barchart/dmd-plugin.git",
+    "array-back": "^4.0.1",
     "commander": "^5.1.0",
     "compare-versions": "^3.6.0",
     "docsify-cli": "^4.4.0",
+    "fast-safe-stringify": "^2.0.7",
+    "file-set": "^3.0.0",
     "handlebars": "^4.7.6",
     "inquirer": "^7.1.0",
     "jsdoc-to-markdown": "^5.0.3",
-    "open-api-to-markdown": "barchart/open-api-to-markdown#master"
+    "marked": "^0.7.0",
+    "object-get": "^2.1.0",
+    "openapi-sampler": "^1.0.0-beta.15",
+    "reftools": "^1.1.1",
+    "swagger-parser": "^9.0.1",
+    "swagger-ui-dist": "^3.25.4",
+    "walk-back": "^4.0.0"
   }
 }

@@ -1,0 +1,63 @@
+### {{title}} 
+
+{{#each data}}
+#### {{toTitleCase @key}} :id={{../title}}{{@key}}
+
+{{#if (isSchema ../title)}}
+{{#getSchema this}}
+**Type**: {{{root.type}}}
+{{#if (isParametersExist this)}}
+    
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{#if root.example}}
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/getSchema}}
+{{>separator}}
+{{/if}}
+{{#if (isResponse ../title)}}
+{{#getResponse this}}
+{{#if description}}
+> {{description}}
+
+{{/if}}
+{{#if (isParametersExist headers)}}
+**Response headers**:
+
+{{#with headers}}
+{{>headerRow}}
+
+{{>dataRows}}
+{{/with}}
+{{/if}}
+{{#each content}}
+{{#if (isParametersExist this)}}
+**Content Type**: <code>{{@key}}</code>
+
+**Response Type:** <code>{{{root.type}}}</code>
+
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{#if root.example}}
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/each}}
+{{/getResponse}}
+{{>separator}}
+{{/if}}
+{{/each}}

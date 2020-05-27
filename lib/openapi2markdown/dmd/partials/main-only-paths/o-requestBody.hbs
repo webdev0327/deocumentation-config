@@ -1,0 +1,28 @@
+{{#if requestBody}}
+#### Request Body
+{{#getRequestBody requestBody true}}
+{{#each this}}
+{{#if (isRootExist this)}}
+    
+**Content Type**: {{@key}}
+
+**Type**: {{{root.type}}}
+
+{{#if (isParametersExist this)}}
+{{>headerRow}}
+
+{{>dataRows}}
+
+{{/if}}
+{{#if root.example}}
+**Example**:
+
+```json
+{{{root.example}}}
+```
+{{/if}}
+{{/if}}
+{{/each}}
+
+{{/getRequestBody}}
+{{/if}}
