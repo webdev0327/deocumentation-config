@@ -1,0 +1,850 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: The Star Wars API
+  description: "All the Star Wars data you've ever wanted: Planets, Spaceships, Vehicles, People, Films and Species. From all SEVEN Star Wars films."
+tags:
+  - name: people
+  - name: planets
+  - name: films
+  - name: species
+  - name: vehicles
+  - name: starships
+servers:
+  - description: Production
+    url: 'https://swapi.dev/api/'
+components:
+  responses:
+    NonFound:
+      description: A record not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                description: An error message
+                type: string
+                example: "Not found"
+  schemas:
+    Film:
+      description: A Star Wars film
+      title: Film
+      type: object
+      required:
+        - title
+        - episode_id
+        - opening_crawl
+        - director
+        - producer
+        - release_date
+        - characters
+        - planets
+        - starships
+        - vehicles
+        - species
+        - url
+        - created
+        - edited
+      properties:
+        starships:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/starships/1/"
+          description: The starship resources featured within this film.
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        planets:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/plantes/1/"
+          description: The planet resources featured within this film.
+        producer:
+          type: string
+          description: The producer(s) of this film.
+        title:
+          type: string
+          description: The title of this film.
+        url:
+          type: string
+          description: The url of this resource
+          format: url
+        release_date:
+          type: string
+          description: The release date at original creator country.
+          format: date
+        vehicles:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/vehicles/1/"
+          description: The vehicle resources featured within this film.
+        episode_id:
+          type: integer
+          description: The episode number of this film.
+        director:
+          type: string
+          description: The director of this film.
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        opening_crawl:
+          type: string
+          description: The opening crawl text at the beginning of this film.
+        characters:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/people/1/"
+          description: The people resources featured within this film.
+        species:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/species/1/"
+          description: The species resources featured within this film.
+    People:
+      description: A person within the Star Wars universe
+      title: People
+      required:
+        - name
+        - height
+        - mass
+        - hair_color
+        - skin_color
+        - eye_color
+        - birth_year
+        - gender
+        - homeworld
+        - films
+        - species
+        - vehicles
+        - starships
+        - url
+        - created
+        - edited
+      type: object
+      properties:
+        starships:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/starships/1/"
+          description: An array of starship resources that this person has piloted
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        name:
+          type: string
+          description: The name of this person.
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        url:
+          type: string
+          description: The url of this resource
+          format: url
+        gender:
+          type: string
+          description: The gender of this person (if known).
+        vehicles:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/vehicles/1/"
+          description: An array of vehicle resources that this person has piloted
+        skin_color:
+          type: string
+          description: The skin color of this person.
+        hair_color:
+          type: string
+          description: The hair color of this person.
+        height:
+          type: string
+          description: The height of this person in meters.
+        eye_color:
+          type: string
+          description: The eye color of this person.
+        mass:
+          type: string
+          description: The mass of this person in kilograms.
+        films:
+          type: array
+          items:
+            type: string
+            example: "http://swapi.dev/api/films/1/"
+            format: url
+          description: An array of urls of film resources that this person has been in.
+        species:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/species/1/"
+          description: The url of the species resource that this person is.
+        homeworld:
+          type: string
+          description: The url of the planet resource that this person was born on.
+        birth_year:
+          type: string
+          description: The birth year of this person. BBY (Before the Battle of Yavin) or ABY (After the Battle of Yavin).
+    Planet:
+      description: A planet.
+      title: Planet
+      required:
+        - name
+        - rotation_period
+        - orbital_period
+        - diameter
+        - climate
+        - gravity
+        - terrain
+        - surface_water
+        - population
+        - residents
+        - films
+        - created
+        - edited
+        - url
+      type: object
+      properties:
+        diameter:
+          type: string
+          description: The diameter of this planet in kilometers.
+        climate:
+          type: string
+          description: The climate of this planet. Comma-seperated if diverse.
+        surface_water:
+          type: string
+          description: The percentage of the planet surface that is naturally occuring water or bodies of water.
+        name:
+          type: string
+          description: The name of this planet.
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        url:
+          type: string
+          description: The hypermedia URL of this resource.
+          format: url
+        rotation_period:
+          type: string
+          description: The number of standard hours it takes for this planet to complete a single rotation on its axis.
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        terrain:
+          type: string
+          description: The terrain of this planet. Comma-seperated if diverse.
+        gravity:
+          type: string
+          description: A number denoting the gravity of this planet. Where 1 is normal.
+        orbital_period:
+          type: string
+          description: The number of standard days it takes for this planet to complete a single orbit of its local star.
+        films:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/films/1/"
+          description: An array of Film URL Resources that this planet has appeared in.
+        residents:
+          type: array
+          items:
+            type: string
+            format: url
+          description: An array of People URL Resources that live on this planet.
+        population:
+          type: string
+          description: The average populationof sentient beings inhabiting this planet.
+    Specie:
+      description: A species within the Star Wars universe
+      title: Specie
+      required:
+        - name
+        - classification
+        - designation
+        - average_height
+        - average_lifespan
+        - hair_colors
+        - skin_colors
+        - eye_colors
+        - homeworld
+        - language
+        - people
+        - films
+        - url
+        - created
+        - edited
+      type: object
+      properties:
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        name:
+          type: string
+          description: The name of this species.
+        classification:
+          type: string
+          description: The classification of this species.
+        people:
+          type: array
+          items:
+            type: string
+            format: url
+          description: An array of People URL Resources that are a part of this species.
+        eye_colors:
+          type: string
+          description: 'A comma-seperated string of common eye colors for this species, none if this species does not typically have eyes.'
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        designation:
+          type: string
+          description: The designation of this species.
+        skin_colors:
+          type: string
+          description: 'A comma-seperated string of common skin colors for this species, none if this species does not typically have skin.'
+        language:
+          type: string
+          description: The language commonly spoken by this species.
+        url:
+          type: string
+          description: The hypermedia URL of this resource.
+          format: url
+        hair_colors:
+          type: string
+          description: 'A comma-seperated string of common hair colors for this species, none if this species does not typically have hair.'
+        homeworld:
+          type: string
+          description: 'The URL of a planet resource, a planet that this species originates from.'
+        films:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/films/1/"
+          description: ' An array of Film URL Resources that this species has appeared in.'
+        average_lifespan:
+          type: string
+          description: The average lifespan of this species in years.
+        average_height:
+          type: string
+          description: The average height of this person in centimeters.
+    Starship:
+      description: A Starship
+      title: Starship
+      required:
+        - name
+        - model
+        - manufacturer
+        - cost_in_credits
+        - length
+        - max_atmosphering_speed
+        - crew
+        - passengers
+        - cargo_capacity
+        - consumables
+        - hyperdrive_rating
+        - MGLT
+        - starship_class
+        - pilots
+        - films
+        - created
+        - edited
+        - url
+      type: object
+      properties:
+        passengers:
+          type: string
+          description: The number of non-essential people this starship can transport.
+        pilots:
+          type: array
+          items:
+            type: string
+            format: url
+          description: An array of People URL Resources that this starship has been piloted by.
+        name:
+          type: string
+          description: 'The name of this starship. The common name, such as Death Star.'
+        hyperdrive_rating:
+          type: string
+          description: The class of this starships hyperdrive.
+        url:
+          type: string
+          description: The hypermedia URL of this resource.
+          format: url
+        cargo_capacity:
+          type: string
+          description: The maximum number of kilograms that this starship can transport.
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        consumables:
+          type: string
+          description: The maximum length of time that this starship can provide consumables for its entire crew without having to resupply.
+        max_atmosphering_speed:
+          type: string
+          description: The maximum speed of this starship in atmosphere. n/a if this starship is incapable of atmosphering flight.
+        crew:
+          type: string
+          description: The number of personnel needed to run or pilot this starship.
+        length:
+          type: string
+          description: The length of this starship in meters.
+        MGLT:
+          type: string
+          description: 'The Maximum number of Megalights this starship can travel in a standard hour. A Megalight is a standard unit of distance and has never been defined before within the Star Wars universe. This figure is only really useful for measuring the difference in speed of starships. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.'
+        starship_class:
+          type: string
+          description: 'The class of this starship, such as Starfighter or Deep Space Mobile Battlestation.'
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        films:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/films/1/"
+          description: An array of Film URL Resources that this starship has appeared in.
+        model:
+          type: string
+          description: The model or official name of this starship. Such as T-65 X-wing or DS-1 Orbital Battle Station.
+        cost_in_credits:
+          type: string
+          description: 'The cost of this starship new, in galactic credits.'
+        manufacturer:
+          type: string
+          description: The manufacturer of this starship. Comma seperated if more than one.
+    Vehicle:
+      description: A vehicle.
+      title: Vehicle
+      required:
+        - name
+        - model
+        - manufacturer
+        - cost_in_credits
+        - length
+        - max_atmosphering_speed
+        - crew
+        - passengers
+        - cargo_capacity
+        - consumables
+        - vehicle_class
+        - pilots
+        - films
+        - created
+        - edited
+        - url
+      type: object
+      properties:
+        vehicle_class:
+          type: string
+          description: 'The class of this vehicle, such as Wheeled.'
+        passengers:
+          type: string
+          description: The number of non-essential people this vehicle can transport.
+        pilots:
+          type: array
+          items:
+            type: string
+            format: url
+          description: An array of People URL Resources that this vehicle has been piloted by.
+        name:
+          type: string
+          description: 'The name of this vehicle. The common name, such as Sand Crawler.'
+        created:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was created.
+          format: date-time
+        url:
+          type: string
+          description: The hypermedia URL of this resource.
+          format: url
+        cargo_capacity:
+          type: string
+          description: The maximum number of kilograms that this vehicle can transport.
+        edited:
+          type: string
+          description: The ISO 8601 date format of the time that this resource was edited.
+          format: date-time
+        consumables:
+          type: string
+          description: The maximum length of time that this vehicle can provide consumables for its entire crew without having to resupply.
+        max_atmosphering_speed:
+          type: string
+          description: The maximum speed of this vehicle in atmosphere.
+        crew:
+          type: string
+          description: The number of personnel needed to run or pilot this vehicle.
+        length:
+          type: string
+          description: The length of this vehicle in meters.
+        films:
+          type: array
+          items:
+            type: string
+            format: url
+            example: "http://swapi.dev/api/films/1/"
+          description: An array of Film URL Resources that this vehicle has appeared in.
+        model:
+          type: string
+          description: The model or official name of this vehicle. Such as All Terrain Attack Transport.
+        cost_in_credits:
+          type: string
+          description: 'The cost of this vehicle new, in galactic credits.'
+        manufacturer:
+          type: string
+          description: The manufacturer of this vehicle. Comma seperated if more than one.
+paths:
+  /people/:
+    get:
+      tags:
+        - people
+      description: Get all the people
+      summary: Get people
+      responses:
+        '200':
+          description: A JSON document representing peoples.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/people/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/people/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/People'
+
+  /people/{id}/:
+    get:
+      tags:
+        - people
+      description: Get a people by ID
+      summary: Get a people
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A people ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing people.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+        '404': 
+          $ref: '#/components/responses/NonFound'
+
+  /planets/:
+    get:
+      tags:
+        - planets
+      description: Get all the planets resources
+      summary: Get planets
+      responses:
+        '200':
+          description: A JSON document representing peoples.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/planets/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/planets/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Planet'
+
+  /planets/{id}/:
+    get:
+      tags:
+        - planets
+      description: Get a planet by ID
+      summary: Get a planet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A planet ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing a planet.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Planet'
+        '404':
+          $ref: '#/components/responses/NonFound'
+
+  /films/:
+    get:
+      tags:
+        - films
+      description: Get all films
+      summary: Get films
+      responses:
+        '200':
+          description: A JSON document representing films.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/films/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/films/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Film'
+
+  /films/{id}/:
+    get:
+      tags:
+        - films
+      description: Get a film by ID
+      summary: Get a film
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A film ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing a film.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          $ref: '#/components/responses/NonFound'
+
+  /species/:
+    get:
+      tags:
+        - species
+      description: Get all species
+      summary: Get species
+      responses:
+        '200':
+          description: A JSON document representing species.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/species/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/species/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Specie'
+        '404':
+          $ref: '#/components/responses/NonFound'
+
+  /species/{id}/:
+    get:
+      tags:
+        - species
+      description: Get a specie by ID
+      summary: Get a specie
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A specie ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing a specie.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specie'
+
+  /vehicles/:
+    get:
+      tags:
+        - vehicles
+      description: Get all vehicles
+      summary: Get vehicles
+      responses:
+        '200':
+          description: A JSON document representing vehicles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/vehicles/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/vehicles/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Vehicle'
+
+  /vehicles/{id}/:
+    get:
+      tags:
+        - vehicles
+      description: Get a vehicle by ID
+      summary: Get a vehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A vehicle ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing a vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '404':
+          $ref: '#/components/responses/NonFound'
+
+  /starships/:
+    get:
+      tags:
+        - starships
+      description: Get all starships
+      summary: Get starships
+      responses:
+        '200':
+          description: A JSON document representing starships.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  next:
+                    type: string
+                    nullable: true
+                    example: 'http://swapi.dev/api/starships/?page=3'
+                    format: url
+                  previous:
+                    type: string
+                    nullable: true
+                    format: url
+                    example: 'http://swapi.dev/api/starships/?page=1'
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Starship'
+
+  /starships/{id}/:
+    get:
+      tags:
+        - starships
+      description: Get a starship by ID
+      summary: Get a starship
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A starship ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON document representing a starship.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Starship'
+        '404':
+          $ref: '#/components/responses/NonFound'

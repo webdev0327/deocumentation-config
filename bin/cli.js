@@ -1,17 +1,21 @@
 #!/usr/bin/env node
-const { program } = require('commander');
-const fs = require('../lib/fsSafe');
 const inquirer = require('inquirer');
 const path = require('path');
+const { program } = require('commander');
 
 const Cache = require('../lib/cache');
 const docsify = require('../lib/docsify');
-const openapi2md = require('../lib/generators/openapi');
+const fs = require('../lib/fsSafe');
 const jsdoc = require('../lib/generators/jsdoc');
+const openapi2md = require('../lib/generators/openapi');
 const pckg = require('./../package.json');
 const releases = require('../lib/releases');
 const templates = require('../lib/templates');
 
+const OPEN_API_PATH = 'openapiPath';
+const JSDOC_PATH = 'jsdocPath';
+
+const cache = new Cache();
 const executionPath = process.cwd();
 const docsFolder = path.resolve(executionPath, 'docs');
 
@@ -21,61 +25,68 @@ const steps = {
 };
 const jsdocQuestion = {
 	type: 'input',
-	name: 'src',
-	message: `Enter the path to the source code (${executionPath}/):`
+	name: JSDOC_PATH,
+	message: `Enter the path to the JavaScript source code (${executionPath}/):`
 };
 const openAPIQuestion = {
 	type: 'input',
-	name: 'openapi',
+	name: OPEN_API_PATH,
 	message: `Enter the path to the OpenAPI file (${executionPath}/):`
 };
+
+/**
+ * Parses a flag value to boolean
+ *
+ * @param value - a flag value
+ * @returns {boolean}
+ */
+function parseBool(value) {
+	return value === 'true';
+}
 
 program.version(pckg.version);
 
 program
 	.command('generate')
 	.description('initializes and generates documentation')
+	.option('-o, --openapi [bool]', 'generates documentation from a OpenAPI file', parseBool)
+	.option('-j, --jsdoc [bool]', 'generates documentation from a JavaScript source code', parseBool)
+	.option('--openapiPath <string>', 'A relative path to a OpenAPI file. e.g.: (../api/swagger.yaml)')
+	.option('--jsdocPath <string>', 'A relative path to a JavaScript source code. e.g.: (lib)')
+	.option('-t, --tryme', 'includes "Try Me" page for OpenAPI')
 	.action(async (args) => {
-		const cache = new Cache();
 		const questions = [];
+		const sourcePaths = {
+			[JSDOC_PATH]: null,
+			[OPEN_API_PATH]: null
+		};
 
-		let packageJSONFile = path.resolve(executionPath, 'package.json');
-
-		let meta = getMetaFromPackage(packageJSONFile);
-
-		if (meta === undefined) {
-			const answer = await inquirer.prompt({
-				type: 'input',
-				name: 'pkg',
-				message: `Enter the path to the package.json file (${executionPath}/):`
-			});
-
-			if (!answer.pkg) {
-				exit('package.json not found');
-			}
-
-			packageJSONFile = path.resolve(executionPath, answer.pkg);
-
-			meta = getMetaFromPackage(packageJSONFile, true);
-		}
-
-		const cachedMeta = cache.get(meta.name);
+		const meta = await getMeta();
+		const cachedPaths = cache.get(meta.name);
 
 		docsify.initialize(docsFolder, meta);
 
-		const jsdocAnswer = await inquirer.prompt({
-			type: 'confirm',
-			name: 'jsdoc',
-			message: `Do you want to generate documentation from JSDoc?:`
-		});
-
-		steps.jsdoc = jsdocAnswer.jsdoc;
-
 		let sidebar = fs.readFileSync(path.resolve(docsFolder, '_sidebar.md')).toString();
 
+		steps.jsdoc = args.jsdoc;
+
+		if (steps.jsdoc !== false && steps.jsdoc !== true) {
+			const { jsdoc } = await inquirer.prompt({
+				type: 'confirm',
+				name: 'jsdoc',
+				message: `Do you want to generate documentation from JSDoc?:`
+			});
+
+			steps.jsdoc = jsdoc;
+		}
+
 		if (steps.jsdoc) {
-			if (!cachedMeta.srcPath) {
+			if (!cachedPaths[JSDOC_PATH] && !args[JSDOC_PATH]) {
 				questions.push(jsdocQuestion);
+			}
+
+			if (args[JSDOC_PATH]) {
+				sourcePaths[JSDOC_PATH] = args[JSDOC_PATH];
 			}
 
 			sidebar = sidebar.replace(
@@ -86,17 +97,25 @@ program
 			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
 		}
 
-		const openAPIAnswer = await inquirer.prompt({
-			type: 'confirm',
-			name: 'openapi',
-			message: `Do you want to generate documentation from OpenAPI file?:`
-		});
+		steps.openapi = args.openapi;
 
-		steps.openapi = openAPIAnswer.openapi;
+		if (steps.openapi !== false && steps.openapi !== true) {
+			const { openapi } = await inquirer.prompt({
+				type: 'confirm',
+				name: 'openapi',
+				message: `Do you want to generate documentation from OpenAPI file?:`
+			});
+
+			steps.openapi = openapi;
+		}
 
 		if (steps.openapi) {
-			if (!cachedMeta.openAPIPath) {
+			if (!cachedPaths[OPEN_API_PATH] && !args[OPEN_API_PATH]) {
 				questions.push(openAPIQuestion);
+			}
+
+			if (args[OPEN_API_PATH]) {
+				sourcePaths[OPEN_API_PATH] = args[OPEN_API_PATH];
 			}
 
 			sidebar = sidebar.replace(
@@ -107,41 +126,29 @@ program
 			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
 		}
 
-		const answers = await inquirer.prompt(questions);
+		if (questions.length) {
+			const { openapiPath, jsdocPath } = await inquirer.prompt(questions);
+
+			if (openapiPath) {
+				sourcePaths.openapiPath = openapiPath;
+			}
+
+			if (jsdocPath) {
+				sourcePaths.jsdocPath = jsdocPath;
+			}
+		}
 
 		if (steps.jsdoc) {
-			if (!answers.src && !cachedMeta.srcPath) {
+			if (!sourcePaths[JSDOC_PATH] && !cachedPaths[JSDOC_PATH]) {
 				console.error('The path to the source code not found. JSDoc documentation skipped.');
 			} else {
-				let srcPath = '';
+				const resolvedPath = resolvePath(JSDOC_PATH, sourcePaths, meta, cachedPaths);
 
-				let isSourceFolderExist = false;
-
-				if (answers.src) {
-					const insertPath = path.resolve(executionPath, answers.src);
-					isSourceFolderExist = fs.existsSync(insertPath);
-					if (isSourceFolderExist) {
-						srcPath = insertPath;
-						cachedMeta.srcPath = insertPath;
-						cache.add(meta.name, cachedMeta);
-					}
-				}
-
-				if (!answers.src && cachedMeta.srcPath) {
-					isSourceFolderExist = fs.existsSync(cachedMeta.srcPath);
-					if (!isSourceFolderExist) {
-						delete cachedMeta.srcPath;
-						cache.add(meta.name, cachedMeta);
-					} else {
-						srcPath = cachedMeta.srcPath;
-					}
-				}
-
-				if (isSourceFolderExist) {
+				if (resolvedPath.isSourceExist) {
 					await jsdoc
-						.generateDocs({
+						.generateDocumentation({
 							docsFolder: docsFolder,
-							srcPath: srcPath,
+							jsdocPath: resolvedPath.path,
 							packageName: meta.name
 						})
 						.catch((err) => {
@@ -154,37 +161,37 @@ program
 		}
 
 		if (steps.openapi) {
-			if (!answers.openapi && !cachedMeta.openAPIPath) {
+			if (!sourcePaths[OPEN_API_PATH] && !cachedPaths[OPEN_API_PATH]) {
 				console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
 			} else {
-				let openAPIPath = '';
+				const resolvedPath = resolvePath(OPEN_API_PATH, sourcePaths, meta, cachedPaths);
 
-				let isOpenAPIFileExist = false;
-
-				if (answers.openapi) {
-					const insertPath = path.resolve(executionPath, answers.openapi);
-					isOpenAPIFileExist = fs.existsSync(insertPath);
-					if (isOpenAPIFileExist) {
-						openAPIPath = insertPath;
-						cachedMeta.openAPIPath = insertPath;
-						cache.add(meta.name, cachedMeta);
-					}
-				}
-
-				if (!answers.openapi && cachedMeta.openAPIPath) {
-					isOpenAPIFileExist = fs.existsSync(cachedMeta.openAPIPath);
-					if (!isOpenAPIFileExist) {
-						delete cachedMeta.openAPIPath;
-						cache.add(meta.name, cachedMeta);
+				if (resolvedPath.isSourceExist) {
+					const options = {};
+					const splitPath = resolvedPath.path.split('/');
+					const file = splitPath.pop();
+					const splitFile = file.split('.');
+					const fileName = splitFile[0];
+					const fileExtension = splitFile[1];
+					if (
+						fileExtension &&
+						(fileExtension.toLowerCase() === 'yaml' ||
+							fileExtension.toLowerCase() === 'yml' ||
+							fileExtension.toLowerCase() === 'json')
+					) {
+						options.filename = fileName;
+						options.fileExtension = fileExtension;
+						if (args.tryme) {
+							options.tryme = true;
+						}
+						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options).catch((err) => {
+							console.error(err);
+						});
 					} else {
-						openAPIPath = cachedMeta.openAPIPath;
+						console.error(
+							'The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.'
+						);
 					}
-				}
-
-				if (isOpenAPIFileExist) {
-					await openapi2md.getOpenAPIOutput(openAPIPath, docsFolder).catch((err) => {
-						console.error(err);
-					});
 				} else {
 					console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
 				}
@@ -221,25 +228,7 @@ program
 	.command('init')
 	.description('initializes documentation structure')
 	.action(async (args) => {
-		let packageJSONFile = path.resolve(executionPath, 'package.json');
-
-		let meta = getMetaFromPackage(packageJSONFile);
-
-		if (meta === undefined) {
-			const answer = await inquirer.prompt({
-				type: 'input',
-				name: 'pkg',
-				message: `Enter the path to the package.json file (${executionPath}/):`
-			});
-
-			if (!answer.pkg) {
-				exit('package.json not found');
-			}
-
-			packageJSONFile = path.resolve(executionPath, answer.pkg);
-
-			meta = getMetaFromPackage(packageJSONFile, true);
-		}
+		const meta = await getMeta();
 
 		docsify.initialize(docsFolder, meta);
 	});
@@ -253,42 +242,80 @@ program
 
 program
 	.command('clear-cache')
-	.description('clears all cache')
+	.description('clears cached paths for current package')
+	.option('-a, --all', 'clears cached paths for all packages')
 	.action(async (args) => {
-		const cache = new Cache();
-		cache.clear();
-		console.log('Cache was cleared');
+		if (args.all) {
+			cache.clear();
+			console.log('Cache was cleared');
+		} else {
+			const meta = await getMeta();
+
+			cache.delete(meta.name);
+			console.log(`Cache was cleared for package [ ${meta.name} ]`);
+		}
 	});
 
-program
-	.command('clear-package-cache')
-	.description('clears cache for current package')
-	.action(async (args) => {
-		let packageJSONFile = path.resolve(executionPath, 'package.json');
+async function getMeta() {
+	let packageJSONFile = path.resolve(executionPath, 'package.json');
 
-		let meta = getMetaFromPackage(packageJSONFile);
+	let meta = getMetaFromPackage(packageJSONFile);
 
-		if (meta === undefined) {
-			const answer = await inquirer.prompt({
-				type: 'input',
-				name: 'pkg',
-				message: `Enter the path to the package.json file (${executionPath}/):`
-			});
+	if (meta === undefined) {
+		const answer = await inquirer.prompt({
+			type: 'input',
+			name: 'pkg',
+			message: `Enter the path to the package.json file (${executionPath}/):`
+		});
 
-			if (!answer.pkg) {
-				exit('package.json not found');
-			}
-
-			packageJSONFile = path.resolve(executionPath, answer.pkg);
-
-			meta = getMetaFromPackage(packageJSONFile, true);
+		if (!answer.pkg) {
+			exit('package.json not found');
 		}
 
-		const cache = new Cache();
+		packageJSONFile = path.resolve(executionPath, answer.pkg);
 
-		cache.delete(meta.name);
-		console.log(`Cache was cleared for package [ ${meta.name} ]`);
-	});
+		meta = getMetaFromPackage(packageJSONFile, true);
+	}
+
+	return meta;
+}
+
+/**
+ * Returns a path to the source and is the source exists
+ *
+ * @param source - a source
+ * @param sourcePaths - paths for sources
+ * @param meta - a meta data of a package
+ * @param cachedPaths - cached paths for sources
+ * @returns {{path: string, isSourceExist: boolean}}
+ */
+function resolvePath(source, sourcePaths, meta, cachedPaths) {
+	let sourcePath = '';
+
+	let isSourceExist = false;
+
+	if (sourcePaths[source]) {
+		const insertPath = path.resolve(executionPath, sourcePaths[source]);
+		isSourceExist = fs.existsSync(insertPath);
+		if (isSourceExist) {
+			sourcePath = insertPath;
+			cachedPaths[source] = insertPath;
+			cache.add(meta.name, cachedPaths);
+		}
+	}
+
+	if (!sourcePaths[source] && cachedPaths[source]) {
+		isSourceExist = fs.existsSync(cachedPaths[source]);
+		if (!isSourceExist) {
+			delete cachedPaths[source];
+			cache.add(meta.name, cachedPaths);
+		} else {
+			sourcePath = cachedPaths[source];
+		}
+	}
+
+	return { path: sourcePath, isSourceExist: isSourceExist };
+}
 
 /**
  * Gets meta data from package.json.

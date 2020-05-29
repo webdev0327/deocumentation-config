@@ -1,0 +1,8 @@
+{{#if (showMainIndex)}}{{#withTOCContent}}## Contents {docsify-ignore}
+
+{{#each this}}* [{{this}}](#{{this}})
+{{/each}}
+{{#if (isTryMe)}}* [Try Me](#tryme){{/if}}
+{{/withTOCContent}}
+
+{{/if}}

@@ -28,6 +28,7 @@
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-sort-requires": "^2.1.0",
     "prettier": "^1.18.2"
   },
   "dependencies": {
@@ -47,6 +48,12 @@
     "reftools": "^1.1.1",
     "swagger-parser": "^9.0.1",
     "swagger-ui-dist": "^3.25.4",
-    "walk-back": "^4.0.0"
+    "walk-back": "^4.0.0",
+    "cache-point": "^2.0.0",
+    "common-sequence": "^2.0.0",
+    "reduce-flatten": "^3.0.0",
+    "reduce-unique": "^2.0.1",
+    "reduce-without": "^1.0.1",
+    "test-value": "^3.0.0"
   }
 }

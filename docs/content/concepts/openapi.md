@@ -65,3 +65,7 @@ paths:
                 items: 
                   type: string
 ```
+
+## Example
+
+An example of OpenAPI specification can be found here: [OpenAPI Example](/static/example.yaml)

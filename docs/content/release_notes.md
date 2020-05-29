@@ -1,7 +1,17 @@
 # Release Notes
 
+## 1.0.0
+* Added new flags for the `generate` command. [Read more](content/quick_start#generateflags).
+* Added support of `[.yml, .json]` extensions for the `OpenAPI` documentation.
+* Refactored `cache` commands. [Read more](content/quick_start#cache).
+    * A `clear-cache` command clears cache of current package.
+    * Deleted a `clear-package-cache` command.
+    * Added a new flag `-a` for the `clear-cache` command to clear the cache of all packages.
+* Updated documentation.
+
+
 ## 0.2.0
-* Added `Swagger UI` for an Open API Documentation
+* Added `Try Me` page for an Open API Documentation
 
 ## 0.1.5
 * Renamed the package name

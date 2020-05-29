@@ -40,9 +40,34 @@ barchart-documentation generate
 
 The `generate` command generates documentation from `JSDoc`, `OpenAPI`, and updates sidebars and compile release notes. 
 
-During the generation process, the CLI will ask from which sources to create documentation, and ask paths to these sources. All paths will be cached for each package so CLI will ask for them only once.
+During the generation process, the CLI **will ask** (if flags weren't provided) from which sources to create documentation, and ask paths to these sources. All paths will be cached for each package so CLI will ask for them only once.
 
-!> The CLI supports generating documentation for `OpenAPI` only from `.yaml` files.
+!> The CLI supports generating documentation for `OpenAPI` only from `[.yml, .yaml, .json]` files.
+
+#### Flags :id=generateflags
+
+|        Flag       |   Type   |   Default  |                                    Description                                      |
+| ----------------- | :------: | :--------: | ----------------------------------------------------------------------------------- |
+|  `-h` `--help`    |     -    |  will ask  | Prints help for generate command.                                                   |
+|  `-j` `--jsdoc`   | `bool`   |  will ask  | Generates documentation from a JavaScript source code                               |
+|  `-o` `--openapi` | `bool`   |  will ask  | Generates documentation from a OpenAPI file                                         |
+|  `-t` `--tryme`   | `bool`   |   `false`  | Includes [Try Me](content/api/try) page for an OpenAPI documentation (works only with `-o` flag) |
+|  `--openapiPath`  | `string` |      -     | A relative path to a OpenAPI file. e.g.: (../api/swagger.yaml)                      |
+|  `--jsdocPath`    | `string` |      -     | A relative path to a JavaScript source code. e.g.: (lib)                            |
+
+> - If `--openapiPath` flag wasn't provided, the CLI will ask you for a path to a OpenAPI file, or get it from the cache.
+> - If `--jsdocPath` flag wasn't provided, the CLI will ask you for a path to a JavaScript source code, or get it from the cache.
+
+**Examples**:
+
+- `barchart-documentation generate` — asks for sources and generates documentation for those sources. 
+- `barchart-documentation generate -o -j` — generates documentation for OpenAPI and JSDoc.
+- `barchart-documentation generate -o -j false` — generates documentation only from a OpenAPI file.
+- `barchart-documentation generate -o false -j` — generates documentation only for OpenAPI.
+- `barchart-documentation generate -o` — generates documentation for OpenAPI and will ask about JSDoc.
+- `barchart-documentation generate -o -t` — includes documentation for OpenAPI and generates Try Me page.
+- `barchart-documentation generate -o --openapiPath swagger.yaml` — generates OpenAPI documentation from provided path.
+
 
 ### Run documentation locally
 
@@ -58,10 +83,20 @@ barchart-documentation serve
 
 The CLI caches paths to source code, and an OpenAPI file of each project. To clear cache use the following commands:
 
-* `barchart-documentation clear-cache` — clears cache for all packages.
-* `barchart-documentation clear-package-cache` — clears cache for current package.
+* `barchart-documentation clear-cache` —  clears cached paths for current package.
+
+#### Flags :id=cacheflags
+
+|      Flag      |              Description              |
+| -------------- | ------------------------------------- |
+|  `-h` `--help` | Prints help for clear-cache command.  |
+|  `-a` `--all`  | Clears cached paths for all packages. |
 
 
 ### Deploy
 
 The CLI uses Docsify which allows to deploy the documentation to the **GitHub Pages**. Learn more about how to deploy documentation to the **GitHub Pages** [here](https://docsify.js.org/#/deploy?id=github-pages). 
+
+### Example
+
+An example of Open API documentation can be found here: [API Reference](content/api_reference)

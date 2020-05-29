@@ -1,0 +1,6 @@
+{{#if customTags}}
+{{#each customTags}}{{#unless (isExportedTag tag)}}**{{titleCase tag}}**: {{#with (parseType value)~}}  
+{{#if type}}{{>link to=type}}{{/if}}{{#if description}}{{{inlineLinks description}}}{{/if}}{{/with}}  
+{{/unless}}
+{{/each}}
+{{/if~}}   
