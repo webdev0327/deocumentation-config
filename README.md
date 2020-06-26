@@ -14,7 +14,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 * Creates skeleton of pages, with:
   * placeholders for content, and
   * content written using [Markdown](https://en.wikipedia.org/wiki/Markdown).
-* Auto-generates SDK documentation for your code, as follows:
+* Auto-generates SDK documentation from your code, as follows:
   * parses your JavaScript files,
   * extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and
   * emits markdown pages.
