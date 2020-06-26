@@ -9,13 +9,13 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
 * Emits a single-page web application using [Docsify](https://docsify.js.org/#/), including:
   * A standard cover page
   * A standard sidebar
-  * A standard page structure and layout
+  * A standard page structure
   * Standard CSS styles
   * Content authoring uses [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML)
 * Generates _optional_ SDK documentation:
-  * Parses your JavaScript files, extracting [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emitting markdown.
+  * Parses your JavaScript files, extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emits markdown
 * Generates _optional_ API documentation by:
-  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown,
+  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown
 * One-click publishing to [GitHub Pages](https://pages.github.com/).
 
 ### Example Sites
