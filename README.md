@@ -2,7 +2,7 @@
 
 [![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiSkJiVDZVKzIvUkh5Vkpzd1prRHlKbGozYUhiSWFXMEhzZFphdzBhTWRiWnRXK2dGMk1GMU52QS8rcTJBWEJjNXZkOTRpUXpMcFBLdjFoYmhRWVhNNStRPSIsIml2UGFyYW1ldGVyU3BlYyI6IlVubWUzdm0reHVoZE5SaDAiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://github.com/barchart/documentation-generator)
 
-A command-line tool that quickly generates easy-to-maintain websites for technical documentation. These websites are follow [Barchart](https://www.barchart.com/solutions) standards for layout and styling.
+A command-line tool that quickly generates easy-to-maintain websites for technical documentation. These websites are follow [Barchart's](https://www.barchart.com/solutions) standards for layout and styling.
 
 ### Basic Features
 
@@ -12,10 +12,11 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
   * A standard page structure and layout
   * Standard CSS styles
   * Content authoring uses [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML)
-* Generates _optional_ SDK documentation from:
-  * JavaScript code by parsing code and reading [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments.
-* Generates _optional_ API documentation from:
-  * [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files
+* Generates _optional_ SDK documentation:
+  * Parses your JavaScript files, extracting [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emitting markdown.
+* Generates _optional_ API documentation by:
+  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown,
+* One-click publishing to [GitHub Pages](https://pages.github.com/).
 
 ### Example Sites
 
