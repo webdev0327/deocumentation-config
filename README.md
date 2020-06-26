@@ -6,17 +6,22 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 ### Basic Features
 
-* Emits a single-page web application using [Docsify](https://docsify.js.org/#/)
-  * A standard cover page
-  * A standard sidebar
-  * A standard page structure
-  * Standard CSS styles
-  * Placeholders for content which can be edited with [Markdown](https://en.wikipedia.org/wiki/Markdown)
-* Generates _optional_ SDK documentation
-  * Parses your JavaScript files, extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emits markdown (see example output)
-* Generates _optional_ API documentation
-  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown (see example output)
-* One-click publishing to [GitHub Pages](https://pages.github.com/)
+* Emits a single-page web application using [Docsify](https://docsify.js.org/#/), with:
+  * a standard cover page,
+  * a standard sidebar,
+  * a standard page structure, and
+  * a standard stylesheet.
+* Builds recommended page structure, with:
+  * placeholders for content, and
+  * content written using [Markdown](https://en.wikipedia.org/wiki/Markdown).
+* Auto-generates SDK documentation for your code, as follows:
+  * parses your JavaScript files,
+  * extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and
+  * emits markdown pages.
+* Auto-generates API documentation for your web service, as follows:
+  * parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) file, and
+  * emits markdown (see example output)
+* Easy to deploy and maintain using [GitHub Pages](https://pages.github.com/).
 
 ### Usage Guide
 
