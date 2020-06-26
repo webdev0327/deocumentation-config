@@ -1,3 +1,3 @@
 ## Requirements
 
-This tool runs using Node.js. Download it [here](https://nodejs.org/en/download/) or better yet, install [Node Version Manager](https://github.com/nvm-sh/nvm).
+This tool runs on [Node.js](https://nodejs.org/en/). Download it [here](https://nodejs.org/en/download/), or better yet — use [Node Version Manager](https://github.com/nvm-sh/nvm).
