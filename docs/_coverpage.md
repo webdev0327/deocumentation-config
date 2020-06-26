@@ -1,6 +1,6 @@
-# @barchart/barchart-documentation <small>0.0.11</small>
+# @barchart/documentation-generator <small>2.0.0</small>
 
-> Generates documentation from JSDoc and OpenAPI.
+> A command-line tool that generates technical documentation websites (like this one)
 
 [Product Overview](/content/product_overview)
 [Quick Start](/content/quick_start)
