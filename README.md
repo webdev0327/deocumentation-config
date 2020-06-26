@@ -11,7 +11,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * A standard sidebar
   * A standard page structure
   * Standard CSS styles
-  * Content authoring uses [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML)
+  * Placeholders for content which can be edited with [Markdown](https://en.wikipedia.org/wiki/Markdown)
 * Generates _optional_ SDK documentation:
   * Parses your JavaScript files, extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emits markdown
 * Generates _optional_ API documentation by:
