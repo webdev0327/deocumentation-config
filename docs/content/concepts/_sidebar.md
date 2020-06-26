@@ -1,8 +1,6 @@
 * [Overview](/content/product_overview)
 * [Quick Start](/content/quick_start)
 * Key Concepts
-<!-- api_open -->
-<!-- api_close -->
-<!-- sdk_open -->
-<!-- sdk_close -->
+	* [Key Concept One](/content/concepts/concept_one)
+	* [Key Concept Two](/content/concepts/concept_two)
 * [Release Notes](/content/release_notes)
