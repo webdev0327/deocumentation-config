@@ -18,18 +18,18 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
   * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown
 * One-click publishing to [GitHub Pages](https://pages.github.com/).
 
+### Usage Guide
+
+This tool has been used to document itself (see the ```docs```) folder. The resulting site can be viewed here:
+
+https://barchart.github.io/documentation-generator/#/
+
 ### Example Sites
 
 These sites were generated (and are maintained) using this tool:
 
 * [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
 * [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
-
-### Usage Guide
-
-This tool has been used to document itself. The full _documentation_ and had been published here:
-
-https://barchart.github.io/documentation-generator/#/
 
 ### Package Managers
 
