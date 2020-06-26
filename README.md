@@ -2,7 +2,7 @@
 
 [![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiSkJiVDZVKzIvUkh5Vkpzd1prRHlKbGozYUhiSWFXMEhzZFphdzBhTWRiWnRXK2dGMk1GMU52QS8rcTJBWEJjNXZkOTRpUXpMcFBLdjFoYmhRWVhNNStRPSIsIml2UGFyYW1ldGVyU3BlYyI6IlVubWUzdm0reHVoZE5SaDAiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://github.com/barchart/documentation-generator)
 
-A command-line tool that quickly generates easy-to-maintain websites for technical documentation. These websites are follow [Barchart's](https://www.barchart.com/solutions) standards for layout and styling.
+A command-line tool that quickly generates easy-to-maintain websites for technical documentation. These websites follow [Barchart's](https://www.barchart.com/solutions) standards for layout and styling.
 
 ### Basic Features
 
