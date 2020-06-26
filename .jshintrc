@@ -1,5 +1,6 @@
 {
   "esversion": 9,
   "validthis": true,
-  "-W018": true
+  "-W018": true,
+  "-W069": true
 }
