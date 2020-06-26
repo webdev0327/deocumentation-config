@@ -38,7 +38,7 @@ These sites were generated (and are maintained) using this tool:
 
 ### Package Managers
 
-This library has been published as a *public* module to NPM as [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator). Install as follows:
+This tool has been published as a *public* module to NPM as [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator). Install as follows:
 
 ```shell
 npm install -g @barchart/documentation-generator
