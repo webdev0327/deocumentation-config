@@ -6,17 +6,16 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
 
 ### Basic Features
 
-* Builds a single-page web application using [Docsify](https://docsify.js.org/#/), including:
+* Emits a single-page web application using [Docsify](https://docsify.js.org/#/), including:
   * A standard cover page
   * A standard sidebar
   * A standard page structure and layout
   * Standard CSS styles
+  * Content authoring uses [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML)
 * Generates _optional_ SDK documentation from:
   * JavaScript code by parsing code and reading [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments.
 * Generates _optional_ API documentation from:
   * [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files
-
-Content is written using [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML).
 
 ### Example Sites
 
