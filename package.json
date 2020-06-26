@@ -1,7 +1,7 @@
 {
 	"name": "@barchart/documentation-generator",
 	"version": "2.0.0",
-	"description": "A command-line tool that generates technical documentation websites",
+	"description": "A command-line tool to generate technical documentation websites",
 	"scripts": {
 		"docs": "lib/docsify serve ./docs",
 		"prettier": "prettier --config .prettierrc --write './**/*.js'",
