@@ -1,4 +1,4 @@
-## Product Summary
+## Summary
 
 A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for **technical documentation** adhering to [Barchart's](https://www.barchart.com/solutions) guidelines for content, style, and layout.
 
@@ -28,7 +28,7 @@ The site **you are viewing now** was created with this tool. Here are some other
   * emits markdown (see example output)
 * Easy to deploy and maintain using [GitHub Pages](https://pages.github.com/).
 
-## Product License
+## Software License
 
 Feel free to use this tool. The MIT license applies.
 
