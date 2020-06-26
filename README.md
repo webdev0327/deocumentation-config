@@ -25,7 +25,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 ### Usage Guide
 
-This tool has been used to document itself (see the ```docs``` folder). The resulting site can be viewed here:
+This tool was used to document itself (see the ```docs``` folder). The resulting site can be viewed here:
 
 https://barchart.github.io/documentation-generator/#/
 
