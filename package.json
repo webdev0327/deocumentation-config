@@ -32,7 +32,6 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "@barchart/dmd-plugin": "git+https://github.com/barchart/dmd-plugin.git",
     "array-back": "^4.0.1",
     "commander": "^5.1.0",
     "compare-versions": "^3.6.0",
