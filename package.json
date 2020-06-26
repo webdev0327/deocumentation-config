@@ -8,7 +8,7 @@
 		"lint": "eslint --fix --config=.eslintrc './**/*.js'"
 	},
 	"bin": {
-		"barchart-documentation": "bin/cli.js"
+		"documentation": "bin/cli.js"
 	},
 	"repository": {
 		"type": "git",
