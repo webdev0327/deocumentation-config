@@ -54,7 +54,7 @@ gulp.task('bump-version', (cb) => {
 });
 
 gulp.task('commit-changes', () => {
-	return gulp.src([ './', './test/', './package.json' ])
+	return gulp.src([ './', './package.json' ])
 		.pipe(git.add())
 		.pipe(git.commit('Release. Bump version number'));
 });
