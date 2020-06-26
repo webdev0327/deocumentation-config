@@ -13,10 +13,10 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * Standard CSS styles
   * Placeholders for content which can be edited with [Markdown](https://en.wikipedia.org/wiki/Markdown)
 * Generates _optional_ SDK documentation
-  * Parses your JavaScript files, extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emits markdown
+  * Parses your JavaScript files, extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and emits markdown (see example output)
 * Generates _optional_ API documentation
-  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown
-* One-click publishing to [GitHub Pages](https://pages.github.com/).
+  * Parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) files and emits markdown (see example output)
+* One-click publishing to [GitHub Pages](https://pages.github.com/)
 
 ### Usage Guide
 
