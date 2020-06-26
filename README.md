@@ -18,9 +18,9 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
 
 Content is written using [Markdown](https://en.wikipedia.org/wiki/Markdown) instead of [HTML](https://en.wikipedia.org/wiki/HTML).
 
-### Example Documentation Sites
+### Example Sites
 
-These sites were generated (and maintained) using this tool:
+These sites were generated (and are maintained) using this tool:
 
 * [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
 * [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
