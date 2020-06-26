@@ -20,7 +20,7 @@ A command-line tool that quickly generates easy-to-maintain websites for technic
 
 ### Usage Guide
 
-This tool has been used to document itself (see the ```docs```) folder. The resulting site can be viewed here:
+This tool has been used to document itself (see the ```docs``` folder). The resulting site can be viewed here:
 
 https://barchart.github.io/documentation-generator/#/
 
