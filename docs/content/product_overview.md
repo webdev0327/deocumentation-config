@@ -16,7 +16,7 @@ The site **you are viewing now** was created with this tool. Here are some other
   * a standard sidebar,
   * a standard page structure, and
   * a standard stylesheet.
-* Builds recommended page structure, with:
+* Creates skeleton of pages, with:
   * placeholders for content, and
   * content written using [Markdown](https://en.wikipedia.org/wiki/Markdown).
 * Auto-generates SDK documentation for your code, as follows:

@@ -11,7 +11,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * a standard sidebar,
   * a standard page structure, and
   * a standard stylesheet.
-* Builds recommended page structure, with:
+* Creates skeleton of pages, with:
   * placeholders for content, and
   * content written using [Markdown](https://en.wikipedia.org/wiki/Markdown).
 * Auto-generates SDK documentation for your code, as follows:
