@@ -25,9 +25,21 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 ### Usage Guide
 
-This tool was used to document itself (see the ```docs``` folder). The resulting site can be viewed here:
+This tool was used to document itself (see the ```docs``` folder). The site is published to [GitHub Pages](https://pages.github.com/) here:
 
 https://barchart.github.io/documentation-generator/#/
+
+However, if you're pathologically incapable of reading documentation (which would be ironic, considering the purpose of this tool), just execute the following:
+
+```shell
+npm install -g @barchart/documentation-generator
+
+mkdir my-first-documentation-site
+cd my-first-documentation-site
+
+documentation init
+documentation serve
+```
 
 ### Example Sites
 
