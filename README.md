@@ -29,7 +29,7 @@ This tool was used to document itself (see the ```docs``` folder). The site is p
 
 https://barchart.github.io/documentation-generator/#/
 
-However, if you're pathologically incapable of reading documentation (which would be ironic — considering the purpose of this tool — just execute the following:
+However, if you're pathologically incapable of reading documentation — which would be ironic, considering the purpose of this tool — just execute the following:
 
 ```shell
 npm install -g @barchart/documentation-generator
