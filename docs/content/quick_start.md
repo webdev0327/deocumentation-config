@@ -57,7 +57,7 @@ documentation serve
 
 As you modify the site, changes will be immediately reflected.
 
-## Auto-Generated Content
+## Content Auto-Generation
 
 ### JavaScript
 
