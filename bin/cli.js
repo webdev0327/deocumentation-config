@@ -47,214 +47,196 @@ function parseBool(value) {
 program.version(pckg.version);
 
 program
-	.command('generate')
-	.description('initializes and generates documentation')
-	.option('-o, --openapi [bool]', 'generates documentation from a OpenAPI file', parseBool)
-	.option('-j, --jsdoc [bool]', 'generates documentation from a JavaScript source code', parseBool)
-	.option('--openapiPath <string>', 'A relative path to a OpenAPI file. e.g.: (../api/swagger.yaml)')
-	.option('--jsdocPath <string>', 'A relative path to a JavaScript source code. e.g.: (lib)')
-	.option('-t, --tryme', 'includes "Try Me" page for OpenAPI')
-	.action(async (args) => {
-		const questions = [];
-		const sourcePaths = {
-			[JSDOC_PATH]: null,
-			[OPEN_API_PATH]: null
-		};
+.command('generate')
+.description('initializes and generates documentation')
+.option('-o, --openapi [bool]', 'generates documentation from a OpenAPI file', parseBool)
+.option('-j, --jsdoc [bool]', 'generates documentation from a JavaScript source code', parseBool)
+.option('--openapiPath <string>', 'A relative path to a OpenAPI file. e.g.: (../api/swagger.yaml)')
+.option('--jsdocPath <string>', 'A relative path to a JavaScript source code. e.g.: (lib)')
+.option('-t, --tryme', 'includes "Try Me" page for OpenAPI')
+.action(async (args) => {
+	const questions = [];
+	const sourcePaths = {
+		[JSDOC_PATH]: null,
+		[OPEN_API_PATH]: null
+	};
 
-		const meta = await getMeta();
-		const cachedPaths = cache.get(meta.name);
+	const meta = await getMeta();
+	const cachedPaths = cache.get(meta.name);
 
-		docsify.initialize(docsFolder, meta);
+	docsify.initialize(docsFolder, meta);
 
-		let sidebar = fs.readFileSync(path.resolve(docsFolder, '_sidebar.md')).toString();
+	let sidebar = fs.readFileSync(path.resolve(docsFolder, '_sidebar.md')).toString();
 
-		steps.jsdoc = args.jsdoc;
+	steps.jsdoc = args.jsdoc;
 
-		if (steps.jsdoc !== false && steps.jsdoc !== true) {
-			const { jsdoc } = await inquirer.prompt({
-				type: 'confirm',
-				name: 'jsdoc',
-				message: `Do you want to generate documentation from JSDoc?:`
-			});
+	if (steps.jsdoc !== false && steps.jsdoc !== true) {
+		const { jsdoc } = await inquirer.prompt({
+			type: 'confirm',
+			name: 'jsdoc',
+			message: 'Do you want to generate documentation from JSDoc?:'
+		});
 
-			steps.jsdoc = jsdoc;
+		steps.jsdoc = jsdoc;
+	}
+
+	if (steps.jsdoc) {
+		if (!cachedPaths[JSDOC_PATH] && !args[JSDOC_PATH]) {
+			questions.push(jsdocQuestion);
 		}
 
-		if (steps.jsdoc) {
-			if (!cachedPaths[JSDOC_PATH] && !args[JSDOC_PATH]) {
-				questions.push(jsdocQuestion);
-			}
-
-			if (args[JSDOC_PATH]) {
-				sourcePaths[JSDOC_PATH] = args[JSDOC_PATH];
-			}
-
-			sidebar = sidebar.replace(
-				/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm,
-				'<!-- sdk_open -->\n* [SDK Reference](/content/sdk_reference)\n<!-- sdk_close -->'
-			);
-
-			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
+		if (args[JSDOC_PATH]) {
+			sourcePaths[JSDOC_PATH] = args[JSDOC_PATH];
 		}
 
-		steps.openapi = args.openapi;
+		sidebar = sidebar.replace(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm, '<!-- sdk_open -->\n* [SDK Reference](/content/sdk_reference)\n<!-- sdk_close -->');
 
-		if (steps.openapi !== false && steps.openapi !== true) {
-			const { openapi } = await inquirer.prompt({
-				type: 'confirm',
-				name: 'openapi',
-				message: `Do you want to generate documentation from OpenAPI file?:`
-			});
+		fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
+	}
 
-			steps.openapi = openapi;
+	steps.openapi = args.openapi;
+
+	if (steps.openapi !== false && steps.openapi !== true) {
+		const { openapi } = await inquirer.prompt({
+			type: 'confirm',
+			name: 'openapi',
+			message: 'Do you want to generate documentation from OpenAPI file?:'
+		});
+
+		steps.openapi = openapi;
+	}
+
+	if (steps.openapi) {
+		if (!cachedPaths[OPEN_API_PATH] && !args[OPEN_API_PATH]) {
+			questions.push(openAPIQuestion);
 		}
 
-		if (steps.openapi) {
-			if (!cachedPaths[OPEN_API_PATH] && !args[OPEN_API_PATH]) {
-				questions.push(openAPIQuestion);
-			}
-
-			if (args[OPEN_API_PATH]) {
-				sourcePaths[OPEN_API_PATH] = args[OPEN_API_PATH];
-			}
-
-			sidebar = sidebar.replace(
-				/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
-				'<!-- api_open -->\n* [API Reference](/content/api_reference)\n<!-- api_close -->'
-			);
-
-			fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
+		if (args[OPEN_API_PATH]) {
+			sourcePaths[OPEN_API_PATH] = args[OPEN_API_PATH];
 		}
 
-		if (questions.length) {
-			const { openapiPath, jsdocPath } = await inquirer.prompt(questions);
+		sidebar = sidebar.replace(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm, '<!-- api_open -->\n* [API Reference](/content/api_reference)\n<!-- api_close -->');
 
-			if (openapiPath) {
-				sourcePaths.openapiPath = openapiPath;
-			}
+		fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
+	}
 
-			if (jsdocPath) {
-				sourcePaths.jsdocPath = jsdocPath;
-			}
+	if (questions.length) {
+		const { openapiPath, jsdocPath } = await inquirer.prompt(questions);
+
+		if (openapiPath) {
+			sourcePaths.openapiPath = openapiPath;
 		}
 
-		if (steps.jsdoc) {
-			if (!sourcePaths[JSDOC_PATH] && !cachedPaths[JSDOC_PATH]) {
+		if (jsdocPath) {
+			sourcePaths.jsdocPath = jsdocPath;
+		}
+	}
+
+	if (steps.jsdoc) {
+		if (!sourcePaths[JSDOC_PATH] && !cachedPaths[JSDOC_PATH]) {
+			console.error('The path to the source code not found. JSDoc documentation skipped.');
+		} else {
+			const resolvedPath = resolvePath(JSDOC_PATH, sourcePaths, meta, cachedPaths);
+
+			if (resolvedPath.isSourceExist) {
+				await jsdoc
+				.generateDocumentation({
+					docsFolder: docsFolder,
+					jsdocPath: resolvedPath.path,
+					packageName: meta.packageName
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+			} else {
 				console.error('The path to the source code not found. JSDoc documentation skipped.');
-			} else {
-				const resolvedPath = resolvePath(JSDOC_PATH, sourcePaths, meta, cachedPaths);
-
-				if (resolvedPath.isSourceExist) {
-					await jsdoc
-						.generateDocumentation({
-							docsFolder: docsFolder,
-							jsdocPath: resolvedPath.path,
-							packageName: meta.name
-						})
-						.catch((err) => {
-							console.error(err);
-						});
-				} else {
-					console.error('The path to the source code not found. JSDoc documentation skipped.');
-				}
 			}
 		}
+	}
 
-		if (steps.openapi) {
-			if (!sourcePaths[OPEN_API_PATH] && !cachedPaths[OPEN_API_PATH]) {
-				console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
-			} else {
-				const resolvedPath = resolvePath(OPEN_API_PATH, sourcePaths, meta, cachedPaths);
-
-				if (resolvedPath.isSourceExist) {
-					const options = {};
-					const splitPath = resolvedPath.path.split('/');
-					const file = splitPath.pop();
-					const splitFile = file.split('.');
-					const fileName = splitFile[0];
-					const fileExtension = splitFile[1];
-					if (
-						fileExtension &&
-						(fileExtension.toLowerCase() === 'yaml' ||
-							fileExtension.toLowerCase() === 'yml' ||
-							fileExtension.toLowerCase() === 'json')
-					) {
-						options.filename = fileName;
-						options.fileExtension = fileExtension;
-						if (args.tryme) {
-							options.tryme = true;
-						}
-						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options).catch((err) => {
-							console.error(err);
-						});
-					} else {
-						console.error(
-							'The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.'
-						);
-					}
-				} else {
-					console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
-				}
-			}
-		}
-
-		updateSidebars(docsFolder);
-		releases.generateReleaseNotes(docsFolder);
-	});
-
-program
-	.command('releases')
-	.description('generates release notes')
-	.action(async (args) => {
-		const isReleasesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'releases'));
-		const isReleaseNotesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'release_notes.md'));
-
-		if (isReleasesExist && isReleaseNotesExist) {
-			templates.registerPartials();
-			releases.generateReleaseNotes(docsFolder);
-			console.log('Release notes was updated');
+	if (steps.openapi) {
+		if (!sourcePaths[OPEN_API_PATH] && !cachedPaths[OPEN_API_PATH]) {
+			console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
 		} else {
-			console.error(
-				`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(
-					docsFolder,
-					'content',
-					'releases'
-				)} ] folder doesn't exist`
-			);
+			const resolvedPath = resolvePath(OPEN_API_PATH, sourcePaths, meta, cachedPaths);
+
+			if (resolvedPath.isSourceExist) {
+				const options = {};
+				const splitPath = resolvedPath.path.split('/');
+				const file = splitPath.pop();
+				const splitFile = file.split('.');
+				const fileName = splitFile[0];
+				const fileExtension = splitFile[1];
+				if (fileExtension && (fileExtension.toLowerCase() === 'yaml' || fileExtension.toLowerCase() === 'yml' || fileExtension.toLowerCase() === 'json')) {
+					options.filename = fileName;
+					options.fileExtension = fileExtension;
+					if (args.tryme) {
+						options.tryme = true;
+					}
+					await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options).catch((err) => {
+						console.error(err);
+					});
+				} else {
+					console.error('The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.');
+				}
+			} else {
+				console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
+			}
 		}
-	});
+	}
+
+	updateSidebars(docsFolder);
+	releases.generateReleaseNotes(docsFolder);
+});
 
 program
-	.command('init')
-	.description('initializes documentation structure')
-	.action(async (args) => {
+.command('releases')
+.description('generates release notes')
+.action(async (args) => {
+	const isReleasesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'releases'));
+	const isReleaseNotesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'release_notes.md'));
+
+	if (isReleasesExist && isReleaseNotesExist) {
+		templates.registerPartials();
+		releases.generateReleaseNotes(docsFolder);
+		console.info('Release notes was updated');
+	} else {
+		console.error(`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(docsFolder, 'content', 'releases')} ] folder doesn't exist`);
+	}
+});
+
+program
+.command('init')
+.description('initializes documentation structure')
+.action(async (args) => {
+	const meta = await getMeta();
+
+	docsify.initialize(docsFolder, meta);
+	releases.generateReleaseNotes(docsFolder);
+});
+
+program
+.command('serve')
+.description('starts local web server to host documentation')
+.action(async (args) => {
+	docsify.serve(docsFolder);
+});
+
+program
+.command('clear-cache')
+.description('clears cached paths for current package')
+.option('-a, --all', 'clears cached paths for all packages')
+.action(async (args) => {
+	if (args.all) {
+		cache.clear();
+		console.info('Cache was cleared');
+	} else {
 		const meta = await getMeta();
 
-		docsify.initialize(docsFolder, meta);
-	});
-
-program
-	.command('serve')
-	.description('starts local web server to host documentation')
-	.action(async (args) => {
-		docsify.serve(docsFolder);
-	});
-
-program
-	.command('clear-cache')
-	.description('clears cached paths for current package')
-	.option('-a, --all', 'clears cached paths for all packages')
-	.action(async (args) => {
-		if (args.all) {
-			cache.clear();
-			console.log('Cache was cleared');
-		} else {
-			const meta = await getMeta();
-
-			cache.delete(meta.name);
-			console.log(`Cache was cleared for package [ ${meta.name} ]`);
-		}
-	});
+		cache.delete(meta.name);
+		console.info(`Cache was cleared for package [ ${meta.name} ]`);
+	}
+});
 
 async function getMeta() {
 	let packageJSONFile = path.resolve(executionPath, 'package.json');
@@ -331,7 +313,13 @@ function getMetaFromPackage(packagePath, error = false) {
 		if (error) {
 			exit('package.json not found');
 		} else {
-			return undefined;
+			return {
+				name: 'Your Project Name',
+				packageName: 'yourprojectname',
+				version: '',
+				description: '',
+				repository: ''
+			};
 		}
 	}
 
@@ -339,6 +327,7 @@ function getMetaFromPackage(packagePath, error = false) {
 
 	return {
 		name: pkg.name,
+		packageName: pkg.name,
 		version: pkg.version,
 		description: pkg.description,
 		repository: pkg.repository ? pkg.repository.url : ''
@@ -376,10 +365,7 @@ function updateSidebars(docFolder) {
 	if (fs.existsSync(apiSidebarPath)) {
 		const apiSidebarString = fs.readFileSync(apiSidebarPath).toString();
 		const apiSidebarContent = apiSidebarString.match(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm)[0];
-		const updatedSidebar = rootSidebar.replace(
-			/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm,
-			apiSidebarContent
-		);
+		const updatedSidebar = rootSidebar.replace(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm, apiSidebarContent);
 
 		fs.writeFileSync(apiSidebarPath, updatedSidebar);
 	}
@@ -387,10 +373,7 @@ function updateSidebars(docFolder) {
 	if (fs.existsSync(sdkSidebarPath)) {
 		const sdkSidebarString = fs.readFileSync(sdkSidebarPath).toString();
 		const sdkSidebarContent = sdkSidebarString.match(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm)[0];
-		const updatedSidebar = rootSidebar.replace(
-			/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm,
-			sdkSidebarContent
-		);
+		const updatedSidebar = rootSidebar.replace(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm, sdkSidebarContent);
 
 		fs.writeFileSync(sdkSidebarPath, updatedSidebar);
 	}

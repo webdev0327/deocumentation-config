@@ -4,19 +4,31 @@
     "sourceType": "module",
     "ecmaFeatures": {}
   },
-  "extends": ["prettier"],
-  "plugins": ["prettier", "sort-requires"],
+  "plugins": ["sort-requires"],
   "rules": {
-    "array-bracket-spacing": 2,
-    "arrow-spacing": 2,
-    "camelcase": 2,
-    "newline-before-return": 2,
-    "no-console": 1,
-    "no-debugger": 2,
-    "no-duplicate-case": 2,
-    "prefer-const": 2,
-    "prettier/prettier": ["error"],
-    "sort-imports": [2, { "ignoreCase": true }],
-    "sort-requires/sort-requires": 2
+    "array-bracket-spacing": "error",
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": "error",
+    "camelcase": "error",
+    "comma-dangle": ["error", "never"],
+    "indent": ["error", "tab", {
+      "MemberExpression": 0
+    }],
+    "no-console": ["warn", 
+      {
+        "allow": ["warn", "error", "info"]
+      }],
+    "no-debugger": "error",
+    "no-duplicate-case": "error",
+    "object-curly-spacing": ["error", "always"],
+    "padding-line-between-statements": ["error", 
+      {
+        "blankLine": "always", "prev": "*", "next": "return"
+      }],
+    "prefer-const": "error",
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "sort-imports": ["error", { "ignoreCase": true }],
+    "sort-requires/sort-requires": "error"
   }
 }
