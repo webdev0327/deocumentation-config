@@ -23,9 +23,16 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * emits markdown (see example output)
 * Easy to deploy and maintain using [GitHub Pages](https://pages.github.com/).
 
+### Example Sites
+
+These GitHub repositories were documented with the help of this tool and published to [GitHub Pages](https://pages.github.com/):
+
+* [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
+* [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
+
 ### Usage Guide
 
-This tool was used to document itself (see the ```docs``` folder). The site is published to [GitHub Pages](https://pages.github.com/) here:
+This tool was used to document itself (see the ```docs``` folder). View the full documentation here:
 
 https://barchart.github.io/documentation-generator/#/
 
@@ -40,13 +47,6 @@ cd my-first-documentation-site
 documentation init
 documentation serve
 ```
-
-### Example Sites
-
-These sites were generated (and are maintained) using this tool:
-
-* [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
-* [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
 
 ### Package Managers
 
