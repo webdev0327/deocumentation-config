@@ -2,7 +2,7 @@
 
 A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for **technical documentation** adhering to [Barchart's](https://www.barchart.com/solutions) guidelines for content, style, and layout.
 
-**The site you are viewing right now was created using this tool.**
+The site you are **viewing right now** was created using this tool.
 
 ## Example Sites
 
