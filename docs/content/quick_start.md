@@ -16,7 +16,7 @@ documentation --version
 
 ## Creating Your Site
 
-Navigate to the root folder for your project, then execute the ```init``` command:
+Navigate to the root folder of the project you intend to document, then execute the ```init``` command:
 
 ```shell
 documentation init
