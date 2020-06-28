@@ -59,18 +59,18 @@ As you modify your site, changes will be immediately reflected.
 
 ## Editing Your Site
 
-### Editing Pages
+### Pages
 
-In the ```docs/content``` folder, we recommend you keep the following files:
+Markdown (```*.md```) files are stored it the ```docs/content``` folder. Each of these files corresponds to a page. You can add new pages by adding new Markdown files to the ```docs/content``` folder.
 
-* ```product_overview.md``` — A product description, for technical and non-technical audiences.
-* ```quick_start.md``` — A technical walk-through containing the bare minimum.
+We recommend you keep the following pages:
 
-You can also add new pages by creating new Markdown files anywhere within the ```docs/content``` folder. We recommend you include a ```Key Concepts``` section for the complete technical details of your product (see the ```docs/content/concepts``` folder).
+* ```product_overview.md``` — A product description non-technical audiences.
+* ```quick_start.md``` — A walk-through for technical audiences.
 
-### Editing the Sidebar
+### Sidebar
 
-As you add or remove files, you might want them to appear in the sidebar. Edit the ```_sidebar.md``` file in the ```docs``` folder. Then run ``` generate``` command to apply your changes to all other ```_sidebar.md``` files:
+As you addpages, you might create new links in the sidebar. To do this, edit the ```_sidebar.md``` file in the ```docs``` folder. Then run ``` generate``` command which applies your changes to the ```_sidebar.md``` files in all subfolders, as follows:
 
 ```shell
 documentation generate
