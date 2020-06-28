@@ -61,7 +61,7 @@ As you modify your site, changes will be immediately reflected.
 
 ### Pages
 
-Markdown (```*.md```) files are stored it the ```docs/content``` folder. Each of these files corresponds to a page. You can add new pages by adding new Markdown files to the ```docs/content``` folder.
+Markdown files (```*.md```) are stored it the ```docs/content``` folder. Each of these files corresponds to a page. You can add new pages by adding new Markdown files to the ```docs/content``` folder.
 
 We recommend you keep the following pages:
 
