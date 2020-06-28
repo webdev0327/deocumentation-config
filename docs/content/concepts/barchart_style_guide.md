@@ -25,7 +25,7 @@ You may be a software engineer or a product manager, but you are also a **techni
 
 **Be concise. Be direct.** Using fewer words is generally best.
 
-**Be comprehensive.** Make sure and cover all important topics.
+**Be comprehensive.** Make sure to cover all important topics.
 
 **This is the 21st century** — we have been trained to search for answers and skim the results. It's painful to read an entire paragraph. We need to recognize that fact. Structure your documentation accordingly.
 
