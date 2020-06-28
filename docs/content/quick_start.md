@@ -70,7 +70,7 @@ We recommend you keep the following pages:
 
 ### Sidebar
 
-As you addpages, you might create new links in the sidebar. To do this, edit the ```_sidebar.md``` file in the ```docs``` folder. Then run ``` generate``` command which applies your changes to the ```_sidebar.md``` files in all subfolders, as follows:
+As you add pages, you might want to create new links in the sidebar. To do this, edit the ```_sidebar.md``` file in the ```docs``` folder. Then run the ``` generate``` command which applies your changes to the ```_sidebar.md``` files in all subfolders, as follows:
 
 ```shell
 documentation generate
