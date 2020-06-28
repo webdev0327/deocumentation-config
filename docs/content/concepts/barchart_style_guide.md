@@ -17,7 +17,7 @@
 
 You may be a software engineer or a product manager, but you are also a **technical writer**. When we document our work, our goals are to:
 
-* convey information **quickly**, and
+* convey information **quickly**,
 * convey information that is **needed**, and
 * convey information in a way that is **easy to comprehend**.
 
