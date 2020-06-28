@@ -53,7 +53,7 @@ Add a README.md file to source control. It should include:
 
 * a short description of the product,
 * a "badge" icon from your continuous integration tool,
-* for public-facing products, a link to your formal documentation site (like this one),
+* for public-facing products, a link to your formal documentation site (see below),
 * for private-facing products, formal documentation isn't necessary, but please include quick-start information in the README file itself.
 
 ### Write a Formal Site
