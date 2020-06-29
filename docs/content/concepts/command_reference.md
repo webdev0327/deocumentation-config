@@ -1,6 +1,4 @@
-**Command Reference**
-
-You must provide a **command** when executing the ```documentation``` program. Some commands accept flags. Usage will follow this general syntax:
+The ```documentation``` program requies a **command** argument. Some commands accept flags. Usage follows this general syntax:
 
 ```shell
 documentation [command] [flags]
@@ -27,8 +25,32 @@ The ```generate``` command is interactive, by default. If you want to suppress i
 
 ## Examples
 
-* `barchart-documentation generate` — Interactive. Prompts for path to SDK files and OpenAPI file. Caches responses.
-* `barchart-documentation generate -j false -o false` — Non-interactive. Skips SDK and API generation.
-* `barchart-documentation generate -j lib/js -o false` — Non-interactive. Generates SDK reference from ```lib/js``` folder. Skips API generation.
-* `barchart-documentation generate -j false -o lib/service.yaml` — Non-interactive. Generates SDK generation. Generates API from ```lib/service.yaml``` file.
-* `barchart-documentation generate -j false -o lib/service.yaml -t` — Non-interactive. Generates SDK generation. Generates API from ```lib/service.yaml``` file. Adds a "try me" page.
+Interactive. Prompts for path to SDK files and OpenAPI file. Caches responses. Optionally generates ```SDK Reference``` and ```API Reference``` sections:
+
+```shell
+documentation generate
+```
+
+Non-interactive. Sections for ```SDK Reference``` and ```API Reference``` are not generated:
+
+```shell
+documentation generate -j false -o false
+```
+
+Non-interactive. Generates ```SDK Reference``` based on contents of ```lib/js``` folder. The ```API Reference``` section is not generated:
+
+```shell
+documentation generate -j lib/js -o false
+```
+
+Non-interactive. Generates ```API Reference``` based on contents of ```lib/service.yaml``` file. The ```SDK Reference``` section is not generated:
+
+```shell
+documentation generate -j false -o lib/service.yaml
+```
+
+Non-interactive. Generates ```API Reference``` based on contents of ```lib/service.yaml``` file. Also adds a ```Try Me``` page for the API. The ```SDK Reference``` section is not generated:
+
+```shell
+documentation generate -j false -o lib/service.yaml -t
+```
