@@ -158,4 +158,4 @@ The files should be named in accordance with semver rules, for example:
 │   │   └── release_notes.md <-- auto-generated
 ```
 
-As an added benefit, these files can be used for GitHub releases (e.g. [here]()).
+As an added benefit, these files can be used for GitHub releases (e.g. [like this](https://github.com/barchart/documentation-generator/releases)).
