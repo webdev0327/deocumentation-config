@@ -4,7 +4,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 ## Example Sites
 
-The site **you are viewing now** was created with this tool. Here are some other Barchart products which use this tool for technical documentation:
+The site **you are viewing now** was created with this tool. Here are some other Barchart products which have been documented with this tool:
 
 * [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
 * [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
