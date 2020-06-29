@@ -49,7 +49,7 @@ documentation serve
 
 ### Package Managers
 
-This tool has been published as a *public* module to NPM as [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator). Install as follows:
+This tool is a *public* module on NPM, named [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator). Install as follows:
 
 ```shell
 npm install -g @barchart/documentation-generator
