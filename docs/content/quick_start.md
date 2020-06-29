@@ -65,7 +65,7 @@ Markdown files (```*.md```) are stored it the ```docs/content``` folder. Each of
 
 We recommend you keep the following pages:
 
-* ```product_overview.md``` — A product description non-technical audiences.
+* ```product_overview.md``` — A product description for non-technical audiences.
 * ```quick_start.md``` — A walk-through for technical audiences.
 
 ### Sidebar
