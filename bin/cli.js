@@ -20,8 +20,8 @@ const executionPath = process.cwd();
 const docsFolder = path.resolve(executionPath, 'docs');
 
 const steps = {
-	jsdoc: false,
-	openapi: true
+	jsdoc: undefined,
+	openapi: undefined
 };
 const jsdocQuestion = {
 	type: 'input',
@@ -35,25 +35,35 @@ const openAPIQuestion = {
 };
 
 /**
- * Parses a flag value to boolean
+ * Parses a parseFlag value to boolean
  *
  * @param value - a flag value
- * @returns {boolean}
+ * @returns {boolean | string}
  */
-function parseBool(value) {
-	return value === 'true';
+function parseFlag(value) {
+	if (value === 'true') {
+		return true;
+	}
+
+	if (value === 'false') {
+		return false;
+	}
+	
+	return value;
 }
 
 program.version(pckg.version);
 
+program.on('--help', () => {
+	console.info('\nComplete documentation for this tool can be found at https://barchart.github.io/documentation-generator/#/');
+});
+
 program
 .command('generate')
-.description('initializes and generates documentation')
-.option('-o, --openapi [bool]', 'generates documentation from a OpenAPI file', parseBool)
-.option('-j, --jsdoc [bool]', 'generates documentation from a JavaScript source code', parseBool)
-.option('--openapiPath <string>', 'A relative path to a OpenAPI file. e.g.: (../api/swagger.yaml)')
-.option('--jsdocPath <string>', 'A relative path to a JavaScript source code. e.g.: (lib)')
-.option('-t, --tryme', 'includes "Try Me" page for OpenAPI')
+.description('rebuilds auto-generated content (e.g. SDK Reference section, API Reference section, sidebars, and release notes)')
+.option('-o, --openapi [string | boolean]', 'rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory', parseFlag)
+.option('-j, --jsdoc [string | boolean]', 'rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file', parseFlag)
+.option('-t, --tryme', 'adds an interactive "try me" page for your web service API')
 .action(async (args) => {
 	const questions = [];
 	const sourcePaths = {
@@ -68,9 +78,15 @@ program
 
 	let sidebar = fs.readFileSync(path.resolve(docsFolder, '_sidebar.md')).toString();
 
-	steps.jsdoc = args.jsdoc;
+	if (typeof args.jsdoc === 'string') {
+		steps.jsdoc = true;
+	}
 
-	if (steps.jsdoc !== false && steps.jsdoc !== true) {
+	if (typeof args.openapi === 'string') {
+		steps.openapi = true;
+	}
+
+	if (steps.jsdoc === undefined) {
 		const { jsdoc } = await inquirer.prompt({
 			type: 'confirm',
 			name: 'jsdoc',
@@ -81,12 +97,12 @@ program
 	}
 
 	if (steps.jsdoc) {
-		if (!cachedPaths[JSDOC_PATH] && !args[JSDOC_PATH]) {
+		if (!cachedPaths[JSDOC_PATH] && typeof args.jsdoc !== 'string') {
 			questions.push(jsdocQuestion);
 		}
 
-		if (args[JSDOC_PATH]) {
-			sourcePaths[JSDOC_PATH] = args[JSDOC_PATH];
+		if (typeof args.jsdoc === 'string') {
+			sourcePaths[JSDOC_PATH] = args.jsdoc;
 		}
 
 		sidebar = sidebar.replace(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm, '<!-- sdk_open -->\n* [SDK Reference](/content/sdk_reference)\n<!-- sdk_close -->');
@@ -94,9 +110,7 @@ program
 		fs.writeFileSync(path.resolve(docsFolder, '_sidebar.md'), sidebar);
 	}
 
-	steps.openapi = args.openapi;
-
-	if (steps.openapi !== false && steps.openapi !== true) {
+	if (steps.openapi === undefined) {
 		const { openapi } = await inquirer.prompt({
 			type: 'confirm',
 			name: 'openapi',
@@ -107,12 +121,12 @@ program
 	}
 
 	if (steps.openapi) {
-		if (!cachedPaths[OPEN_API_PATH] && !args[OPEN_API_PATH]) {
+		if (!cachedPaths[OPEN_API_PATH] && typeof args.openapi !== 'string') {
 			questions.push(openAPIQuestion);
 		}
 
-		if (args[OPEN_API_PATH]) {
-			sourcePaths[OPEN_API_PATH] = args[OPEN_API_PATH];
+		if (typeof args.openapi === 'string') {
+			sourcePaths[OPEN_API_PATH] = args.openapi;
 		}
 
 		sidebar = sidebar.replace(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm, '<!-- api_open -->\n* [API Reference](/content/api_reference)\n<!-- api_close -->');
@@ -191,7 +205,7 @@ program
 
 program
 .command('releases')
-.description('generates release notes')
+.description('rebuilds release notes')
 .action(async (args) => {
 	const isReleasesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'releases'));
 	const isReleaseNotesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'release_notes.md'));
@@ -207,7 +221,7 @@ program
 
 program
 .command('init')
-.description('initializes documentation structure')
+.description('creates docs folder and suggested page skeleton')
 .action(async (args) => {
 	const meta = await getMeta();
 
@@ -217,15 +231,15 @@ program
 
 program
 .command('serve')
-.description('starts local web server to host documentation')
+.description('runs a local web server from the docs folder')
 .action(async (args) => {
 	docsify.serve(docsFolder);
 });
 
 program
 .command('clear-cache')
-.description('clears cached paths for current package')
-.option('-a, --all', 'clears cached paths for all packages')
+.description('clears saved data (e.g. the path to your code and the path to your OpenAPI file)')
+.option('-a, --all', 'clears saved data for all packages')
 .action(async (args) => {
 	if (args.all) {
 		cache.clear();
