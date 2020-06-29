@@ -24,7 +24,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 ### Example Sites
 
-These Barchart products were documented with this tool. The documentation sites are hosted on [GitHub Pages](https://pages.github.com/):
+These Barchart products were documented using this tool; the sites are hosted on [GitHub Pages](https://pages.github.com/):
 
 * [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
 * [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
