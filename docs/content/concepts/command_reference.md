@@ -23,14 +23,12 @@ The ```generate``` command is interactive, by default. If you want to suppress i
 | :-------------- | :------: | :-------------------------: | :---------------------------------------------------------------------------------------------- |
 | ```--jsdoc```   | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory. |
 | ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file.      |
-| ```--tryme```   | ```-t``` | ```boolean```               | Adds an interactive "try me" page for your web service API.                                     |
+| ```--tryme```   | ```-t``` | none                        | Adds an interactive "try me" page for your web service API.                                     |
 
 ## Examples
 
-* `barchart-documentation generate` — asks for sources and generates documentation for those sources.
-* `barchart-documentation generate -o -j` — generates documentation for OpenAPI and JSDoc.
-* `barchart-documentation generate -o -j false` — generates documentation only from a OpenAPI file.
-* `barchart-documentation generate -o false -j` — generates documentation only for OpenAPI.
-* `barchart-documentation generate -o` — generates documentation for OpenAPI and will ask about JSDoc.
-* `barchart-documentation generate -o -t` — includes documentation for OpenAPI and generates Try Me page.
-* `barchart-documentation generate -o service.yaml` — generates OpenAPI documentation from
+* `barchart-documentation generate` — Interactive. Prompts for path to SDK files and OpenAPI file. Caches responses.
+* `barchart-documentation generate -j false -o false` — Non-interactive. Skips SDK and API generation.
+* `barchart-documentation generate -j lib/js -o false` — Non-interactive. Generates SDK reference from ```lib/js``` folder. Skips API generation.
+* `barchart-documentation generate -j false -o lib/service.yaml` — Non-interactive. Generates SDK generation. Generates API from ```lib/service.yaml``` file.
+* `barchart-documentation generate -j false -o lib/service.yaml -t` — Non-interactive. Generates SDK generation. Generates API from ```lib/service.yaml``` file. Adds a "try me" page.
