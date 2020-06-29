@@ -6,12 +6,12 @@ documentation [command] [flags]
 
 ## Commands
 
-| Command           | Interactive | Has Options         | Description                                                                                     |
-| :---------------- | :---------: | :-----------------: | :---------------------------------------------------------------------------------------------- |
-| ```init```        | No          | No                  | Creates ```docs``` folder and suggested page skeleton.                                          |
-| ```serve```       | No          | No                  | Runs a local web server from the ```docs``` folder.                                             |
-| ```generate```    | Depends     | Optional            | Rebuilds auto-generated content (e.g. SDK, API, sidebars, and release notes).                   |
-| ```clear-cache``` | No          | No                  | Clears saved data (e.g. path to your code, path to your OpenAPI file).                          |
+| Command           | Interactive | Has Options         | Description                                                                                                       |
+| :---------------- | :---------: | :-----------------: | :---------------------------------------------------------------------------------------------------------------- |
+| ```init```        | No          | No                  | Creates ```docs``` folder and suggested page skeleton.                                                            |
+| ```serve```       | No          | No                  | Runs a local web server from the ```docs``` folder.                                                               |
+| ```generate```    | Depends     | Optional            | Rebuilds auto-generated content (e.g. SDK Reference section, API Reference section, sidebars, and release notes). |
+| ```clear-cache``` | No          | No                  | Clears saved data (e.g. the path to your code and the path to your OpenAPI file).                                 |
 
 ## Flags
 
@@ -25,7 +25,7 @@ The ```generate``` command is interactive, by default. If you want to suppress i
 
 ## Examples
 
-Interactive. Prompts for path to SDK files and OpenAPI file. Caches responses. Optionally generates ```SDK Reference``` and ```API Reference``` sections:
+Interactive. Prompts for path to JavaScipt files and path to OpenAPI file. Caches responses. Depending on responses, generates ```SDK Reference``` and ```API Reference``` sections:
 
 ```shell
 documentation generate
