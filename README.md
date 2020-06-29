@@ -31,11 +31,11 @@ These Barchart products were documented using this tool; the sites are hosted on
 
 ### Usage Guide
 
-This tool was used to document itself (see the ```docs``` folder). View the full documentation here:
+This tool was used to document itself (see the ```docs``` folder) can view the published site here:
 
 https://barchart.github.io/documentation-generator/#/
 
-However, if you're pathologically incapable of reading documentation — which would be ironic, considering the purpose of this tool — just execute the following:
+If you're pathologically incapable of reading documentation — which would be ironic, considering the purpose of this tool — just execute the following shell commands:
 
 ```shell
 npm install -g @barchart/documentation-generator
