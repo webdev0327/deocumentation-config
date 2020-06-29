@@ -19,7 +19,7 @@ The site **you are viewing now** was created with this tool. Here are some other
   * a standard page structure, and
   * a standard stylesheet.
 * Creates skeleton of pages, with:
-  * placeholder pages for content (written using [Markdown](https://en.wikipedia.org/wiki/Markdown)).
+  * placeholder pages (written using [Markdown](https://en.wikipedia.org/wiki/Markdown)).
 * Auto-generates SDK documentation from your code, as follows:
   * parses your JavaScript files,
   * extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and
