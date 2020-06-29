@@ -115,7 +115,7 @@ https://barchart.github.io/marketdata-api-js/#/content/sdk_reference
 
 ### Web Service (OpenAPI)
 
-If you are documenting a web service and you've written an [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) document, this tool can parse the file and auto-generate pages describing your API in a nicely-formatted fashion.
+If you are documenting a web service and you've written an [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) document, this tool can parse your OpenAPI document and auto-generate pages describing your API in a nicely-formatted fashion.
 
 Use the ```generate``` command, as follows:
 
