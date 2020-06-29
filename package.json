@@ -3,7 +3,6 @@
 	"version": "2.0.2",
 	"description": "A command-line tool to generate technical documentation websites",
 	"scripts": {
-		"docs": "lib/docsify serve ./docs",
 		"lint": "eslint --fix --config=.eslintrc './**/*.js'"
 	},
 	"bin": {
