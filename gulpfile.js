@@ -3,14 +3,12 @@ const exec = require('child_process').exec,
 
 const gulp = require('gulp');
 
-const buffer = require('vinyl-buffer'),
-	git = require('gulp-git'),
+const git = require('gulp-git'),
 	gitStatus = require('git-get-status'),
-	glob = require('glob'),
 	jasmine = require('gulp-jasmine'),
 	jshint = require('gulp-jshint'),
 	prompt = require('gulp-prompt'),
-	source = require('vinyl-source-stream');
+	replace = require('gulp-replace');
 
 function getVersionFromPackage() {
 	return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
@@ -63,18 +61,16 @@ gulp.task('bump-version', (cb) => {
 gulp.task('embed-version', () => {
 	const version = getVersionFromPackage();
 
-	const coverpage = gulp.src(['./docs/_coverpage.md'])
+	return gulp.src(['./docs/_coverpage.md'])
 		.pipe(replace(/[0-9]+\.[0-9]+\.[0-9]+/g, version))
 		.pipe(gulp.dest('./docs/'));
-
-	return merge(coverpage);
 });
 
 gulp.task('commit-changes', () => {
 	return gulp
-	.src(['./', './package.json', './docs/_coverpage.md'])
-	.pipe(git.add())
-	.pipe(git.commit('Release. Bump version number'));
+		.src(['./', './package.json', './package-lock.json', './docs/_coverpage.md'])
+		.pipe(git.add())
+		.pipe(git.commit('Release. Bump version number'));
 });
 
 gulp.task('push-changes', (cb) => {

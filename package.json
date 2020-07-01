@@ -54,15 +54,13 @@
 		"eslint": "^6.5.1",
 		"eslint-plugin-sort-requires": "^2.1.0",
 		"git-get-status": "^1.0.5",
-		"glob": "^6.0.1",
 		"gulp": "^4.0.2",
 		"gulp-git": "^2.9.0",
 		"gulp-jasmine": "^2.2.1",
 		"gulp-jshint": "^2.1.0",
 		"gulp-prompt": "^1.2.0",
-		"jshint": "^2.10.3",
-		"vinyl-buffer": "^1.0.1",
-		"vinyl-source-stream": "^2.0.0"
+		"gulp-replace": "^0.5.4",
+		"jshint": "^2.10.3"
 	},
 	"license": "MIT",
 	"private": false
