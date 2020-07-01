@@ -87,7 +87,15 @@ gulp.task('execute-tests', () => {
 	return gulp.src(['test/specs/**/*.js']).pipe(jasmine());
 });
 
-gulp.task('release', gulp.series('ensure-clean-working-directory', 'execute-tests', 'bump-choice', 'bump-version', 'commit-changes', 'push-changes', 'create-tag'));
+gulp.task('release', gulp.series(
+	'ensure-clean-working-directory',
+	'execute-tests',
+	'bump-choice',
+	'bump-version',
+	'commit-changes',
+	'push-changes',
+	'create-tag'
+));
 
 gulp.task('lint', () => {
 	return gulp
