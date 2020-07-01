@@ -106,10 +106,10 @@ gulp.task('release', gulp.series(
 
 gulp.task('lint', () => {
 	return gulp
-	.src(['./bin/**/*.js', './lib/**/*.js', './test/specs/**/*.js', './gulpfile.js'])
-	.pipe(jshint({ esversion: 9 }))
-	.pipe(jshint.reporter('default'))
-	.pipe(jshint.reporter('fail'));
+		.src(['./bin/**/*.js', './lib/**/*.js', './test/specs/**/*.js', './gulpfile.js'])
+		.pipe(jshint({ esversion: 9 }))
+		.pipe(jshint.reporter('default'))
+		.pipe(jshint.reporter('fail'));
 });
 
 gulp.task('test', gulp.series('execute-tests'));
