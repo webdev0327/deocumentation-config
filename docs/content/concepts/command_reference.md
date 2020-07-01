@@ -11,17 +11,26 @@ documentation [command] [flags]
 | ```init```        | No          | No                  | Creates ```docs``` folder and suggested page skeleton.                                                            |
 | ```serve```       | No          | No                  | Runs a local web server from the ```docs``` folder.                                                               |
 | ```generate```    | Depends     | Optional            | Rebuilds auto-generated content (e.g. SDK Reference section, API Reference section, sidebars, and release notes). |
-| ```clear-cache``` | No          | No                  | Clears saved data (e.g. the path to your code and the path to your OpenAPI file).                                 |
+| ```clear-cache``` | No          | Optional            | Clears saved data (e.g. forgets the path to your code files and the path to your OpenAPI file).                   |
 
 ## Flags
 
-The ```generate``` command is interactive, by default. If you want to suppress interactive prompts, use the following flags:
+
+The ```generate``` command is path sensitvie. It is also interactive, by default. However, the following flags can be used to suppress interactive prompts:
 
 | Flag            | Alias    | Argument                    | Description                                                                                     |
 | :-------------- | :------: | :-------------------------: | :---------------------------------------------------------------------------------------------- |
 | ```--jsdoc```   | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory. |
 | ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file.      |
 | ```--tryme```   | ```-t``` | none                        | Adds an interactive "try me" page for your web service API.                                     |
+
+The ```clear-cache``` command accepts the following flag:
+
+| Flag            | Alias    | Argument                    | Description                                                                                     |
+| :-------------- | :------: | :-------------------------: | :---------------------------------------------------------------------------------------------- |
+| ```--all```     | ```-a``` | none                        | Clears the cache for all projects (i.e. each folder you've used the command in).                |
+
+
 
 ## Examples
 
