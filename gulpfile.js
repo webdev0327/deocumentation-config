@@ -60,9 +60,19 @@ gulp.task('bump-version', (cb) => {
 	);
 });
 
+gulp.task('embed-version', () => {
+	const version = getVersionFromPackage();
+
+	const coverpage = gulp.src(['./docs/_coverpage.md'])
+		.pipe(replace(/[0-9]+\.[0-9]+\.[0-9]+/g, version))
+		.pipe(gulp.dest('./docs/'));
+
+	return merge(coverpage);
+});
+
 gulp.task('commit-changes', () => {
 	return gulp
-	.src(['./', './package.json'])
+	.src(['./', './package.json', './docs/_coverpage.md'])
 	.pipe(git.add())
 	.pipe(git.commit('Release. Bump version number'));
 });
@@ -92,6 +102,7 @@ gulp.task('release', gulp.series(
 	'execute-tests',
 	'bump-choice',
 	'bump-version',
+	'embed-version',
 	'commit-changes',
 	'push-changes',
 	'create-tag'
