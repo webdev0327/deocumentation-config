@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.0.5
+**Bug fixes**
+
+* The ```-j``` and ```-o``` flags fixed, correctly allowing ```string```, ```Boolean``` or **empty** arguments.
+* Fixed an error: "jsdoc-babel" not found.
+
 ## 2.0.3
 **Minor Bug Fixes**
 
