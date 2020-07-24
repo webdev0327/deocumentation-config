@@ -80,10 +80,14 @@ program
 
 		if (typeof args.jsdoc === 'string') {
 			steps.jsdoc = true;
+		} if (typeof args.jsdoc === 'boolean') {
+			steps.jsdoc = args.jsdoc;
 		}
 
 		if (typeof args.openapi === 'string') {
 			steps.openapi = true;
+		} else if (typeof args.openapi === 'boolean') {
+			steps.openapi = args.openapi;
 		}
 
 		if (steps.jsdoc === undefined) {
