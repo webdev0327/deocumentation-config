@@ -1,9 +1,14 @@
 # Release Notes
 
+## 2.0.6
+**Bug fixes**
+
+* Generator JSDoc were ignored hidden files (e.g. ```.meta.js```).
+
 ## 2.0.5
 **Bug fixes**
 
-* The ```-j``` and ```-o``` flags fixed, correctly allowing ```string```, ```Boolean``` or **empty** arguments.
+* The ```-j``` and ```-o``` flags fixed.
 * Fixed an error: "jsdoc-babel" not found.
 
 ## 2.0.3

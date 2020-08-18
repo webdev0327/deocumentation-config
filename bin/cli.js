@@ -382,18 +382,25 @@ function updateSidebars(docFolder) {
 
 	if (fs.existsSync(apiSidebarPath)) {
 		const apiSidebarString = fs.readFileSync(apiSidebarPath).toString();
-		const apiSidebarContent = apiSidebarString.match(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm)[0];
-		const updatedSidebar = rootSidebar.replace(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm, apiSidebarContent);
+		const apiSidebarContentMatch = apiSidebarString.match(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm);
+		if (apiSidebarContentMatch !== null) {
+			const apiSidebarContent = apiSidebarContentMatch[0];
+			const updatedSidebar = rootSidebar.replace(/(<!-- api_open -->(\s|.)*<!-- api_close -->)/gm, apiSidebarContent);
 
-		fs.writeFileSync(apiSidebarPath, updatedSidebar);
+			fs.writeFileSync(apiSidebarPath, updatedSidebar);	
+		}
 	}
 
 	if (fs.existsSync(sdkSidebarPath)) {
 		const sdkSidebarString = fs.readFileSync(sdkSidebarPath).toString();
-		const sdkSidebarContent = sdkSidebarString.match(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm)[0];
-		const updatedSidebar = rootSidebar.replace(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm, sdkSidebarContent);
-
-		fs.writeFileSync(sdkSidebarPath, updatedSidebar);
+		const sdkSidebarContentMatch = sdkSidebarString.match(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm);
+		
+		if (sdkSidebarContentMatch !== null) {
+			const sdkSidebarContent = sdkSidebarContentMatch[0];
+			const updatedSidebar = rootSidebar.replace(/(<!-- sdk_open -->(\s|.)*<!-- sdk_close -->)/gm, sdkSidebarContent);
+			
+			fs.writeFileSync(sdkSidebarPath, updatedSidebar);
+		}
 	}
 }
 
