@@ -3,7 +3,7 @@
 ## 2.0.6
 **Bug fixes**
 
-* Generator JSDoc were ignored hidden files (e.g. ```.meta.js```).
+* The ```generate``` command will now process hidden files with a ```.js``` suffix (e.g. ```.meta.js```).
 
 ## 2.0.5
 **Bug fixes**
