@@ -11,7 +11,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * a standard sidebar,
   * a standard page structure, and
   * a standard stylesheet.
-* Creates skeleton of pages, with:
+* Creates skeleton of pages, with
   * placeholder pages (written using [Markdown](https://en.wikipedia.org/wiki/Markdown)).
 * Auto-generates SDK documentation from your code, as follows:
   * parses your JavaScript files,
@@ -28,6 +28,7 @@ These Barchart products were documented using this tool; the sites are hosted on
 
 * [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
 * [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
+* [Barchart Watchlist Service SDK](https://barchart.github.io/watchlist-client-js/#/)
 
 ### Usage Guide
 
@@ -49,11 +50,7 @@ documentation serve
 
 ### Package Managers
 
-This tool is a *public* module on NPM, named [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator). Install as follows:
-
-```shell
-npm install -g @barchart/documentation-generator
-```
+This tool is a *public* module on NPM, named [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator).
 
 ### License
 
