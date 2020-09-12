@@ -163,7 +163,11 @@ program
 							jsdocPath: resolvedPath.path,
 							packageName: meta.packageName
 						})
+						.then(() => {
+							console.info('JSDoc documentation generated.');
+						})
 						.catch((err) => {
+							console.error('Generation of the JSDoc documentation has failed.');
 							console.error(err);
 						});
 				} else {
@@ -191,9 +195,14 @@ program
 						if (args.tryme) {
 							options.tryme = true;
 						}
-						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options).catch((err) => {
-							console.error(err);
-						});
+						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options)
+							.then(() => {
+								console.info('OpenAPI documentation generated.');
+							})
+							.catch((err) => {
+								console.error('Generation of the OpenAPI documentation has failed.');
+								console.error(err.toString());
+							});
 					} else {
 						console.error('The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.');
 					}

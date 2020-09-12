@@ -1,5 +1,20 @@
 # Release Notes
 
+## 2.0.7
+**Bug fixes**
+
+* Added a message when generation of documentation done.
+* OpenAPI
+    * Fixed parsing of the ```required``` property.
+    * Fixed parsing of the ```description``` property.
+* JSDoc
+    * Removed the ```<p>``` tag from the description section. 
+
+**Other**
+
+* Print validation errors.
+* Switch the default order of the sidebar. The API section is below the SDK section now.
+
 ## 2.0.6
 **Bug fixes**
 
