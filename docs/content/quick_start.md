@@ -26,25 +26,25 @@ This will create a ```docs``` folder and the following skeletal structure:
 
 ```text
 ├── docs
-│   ├── content
-│   │   ├── concepts
-│   │   │   ├── concept_one.md <-- stub file (rename, edit, or remove)
-│   │   │   ├── concept_two.md <-- stub file (rename, edit, or remove)
-│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
-│   │   ├── releases
-│   │   │   ├── 0.0.0.md <-- stub file (rename, edit, or remove)
-│   │   │   ├── 0.0.1.md <-- stub file (rename, edit, or remove)
-│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
-│   │   ├── product_overview.md <-- stub file (rename, edit, or remove)
-│   │   ├── quick_start.md <-- stub file (rename, edit, or remove)
-│   │   ├── release_notes.md <-- auto-generated from releases folder
-│   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
-│   ├── styles
-│   │   └── override.css <-- user stylesheet (edit as desired)
-│   ├── index.html <-- bootstraps site, loading Docsify code
-│   ├── .nojekyll <-- for GitHub
-│   ├── _coverpage.md <-- the cover page (edit as desired)
-│   └── _sidebar.md <-- the sidebar (edit as desired, copied to subfolders)
+│   ├── content
+│   │   ├── concepts
+│   │   │   ├── concept_one.md <-- stub file (rename, edit, or remove)
+│   │   │   ├── concept_two.md <-- stub file (rename, edit, or remove)
+│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
+│   │   ├── releases
+│   │   │   ├── 0.0.0.md <-- stub file (rename, edit, or remove)
+│   │   │   ├── 0.0.1.md <-- stub file (rename, edit, or remove)
+│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
+│   │   ├── product_overview.md <-- stub file (rename, edit, or remove)
+│   │   ├── quick_start.md <-- stub file (rename, edit, or remove)
+│   │   ├── release_notes.md <-- auto-generated from releases folder
+│   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
+│   ├── styles
+│   │   └── override.css <-- user stylesheet (edit as desired)
+│   ├── index.html <-- bootstraps site, loading Docsify code
+│   ├── .nojekyll <-- for GitHub
+│   ├── _coverpage.md <-- the cover page (edit as desired)
+│   └── _sidebar.md <-- the sidebar (edit as desired, copied to subfolders)
 ```
 
 ## Viewing Your Site
@@ -99,12 +99,12 @@ You will be interactively prompted for the path to your code files (relative to 
 
 ```text
 ├── docs
-│   ├── content
-│   │   ├── sdk
-│   │   │   ├── some_code_namespace_one.md <-- auto-generated
-│   │   │   ├── some_code_namespace_two.md <-- auto-generated
-│   │   │   └──_sidebar.md <-- auto-generated from "root" sidebar file
-│   │   └── sdk_reference.md <-- auto-generated
+│   ├── content
+│   │   ├── sdk
+│   │   │   ├── some_code_namespace_one.md <-- auto-generated
+│   │   │   ├── some_code_namespace_two.md <-- auto-generated
+│   │   │   └──_sidebar.md <-- auto-generated from "root" sidebar file
+│   │   └── sdk_reference.md <-- auto-generated
 ```
 
 **You can re-execute this command to regenerate your documentation (after source code changes).**
@@ -127,13 +127,13 @@ You will be interactively prompted for the path to your OpenAPI file (relative t
 
 ```text
 ├── docs
-│   ├── content
-│   │   ├── api
-│   │   │   ├── components.md <-- auto-generated
-│   │   │   ├── paths.md <-- auto-generated
-│   │   │   ├── try.md <-- auto-generated, optional tool to "try" the API
-│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
-│   │   └── api_reference.md <-- auto-generated
+│   ├── content
+│   │   ├── api
+│   │   │   ├── components.md <-- auto-generated
+│   │   │   ├── paths.md <-- auto-generated
+│   │   │   ├── try.md <-- auto-generated, optional tool to "try" the API
+│   │   │   └── _sidebar.md <-- auto-generated from "root" sidebar file
+│   │   └── api_reference.md <-- auto-generated
 ```
 
 **You can re-execute this command to regenerate your documentation (after the OpenAPI file changes).**
@@ -150,12 +150,12 @@ The files should be named in accordance with semver rules, for example:
 
 ```text
 ├── docs
-│   ├── content
-│   │   ├── releases
-│   │   │   ├── 1.0.0.md <-- you write this file
-│   │   │   ├── 1.0.1.md <-- you write this file
-│   │   │   └── 2.33.444.md <-- you write this file
-│   │   └── release_notes.md <-- auto-generated
+│   ├── content
+│   │   ├── releases
+│   │   │   ├── 1.0.0.md <-- you write this file
+│   │   │   ├── 1.0.1.md <-- you write this file
+│   │   │   └── 2.33.444.md <-- you write this file
+│   │   └── release_notes.md <-- auto-generated
 ```
 
 As an added benefit, these files can be used for GitHub releases (e.g. [like this](https://github.com/barchart/documentation-generator/releases)).
