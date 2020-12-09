@@ -1,6 +1,7 @@
 # @barchart/documentation-generator
 
 [![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiSkJiVDZVKzIvUkh5Vkpzd1prRHlKbGozYUhiSWFXMEhzZFphdzBhTWRiWnRXK2dGMk1GMU52QS8rcTJBWEJjNXZkOTRpUXpMcFBLdjFoYmhRWVhNNStRPSIsIml2UGFyYW1ldGVyU3BlYyI6IlVubWUzdm0reHVoZE5SaDAiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://github.com/barchart/documentation-generator)
+[![NPM](https://img.shields.io/npm/v/@barchart/documentation-generator)](https://www.npmjs.com/package/@barchart/documentation-generator)
 
 A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for **technical documentation** adhering to [Barchart's](https://www.barchart.com/solutions) guidelines for content, style, and layout.
 
