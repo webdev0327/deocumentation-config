@@ -32,7 +32,7 @@ These Barchart products were documented using this tool; the sites are hosted on
 
 ### Usage Guide
 
-This tool was used to document itself (see the ```docs``` folder) can view the published site here:
+This tool was used to document itself (see the ```docs``` folder). The resulting site can has been published here:
 
 https://barchart.github.io/documentation-generator/#/
 
