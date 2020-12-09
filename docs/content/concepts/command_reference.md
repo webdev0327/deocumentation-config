@@ -34,31 +34,31 @@ The ```clear-cache``` command accepts the following flag:
 
 ## Examples
 
-Interactive. Prompts for path to JavaScipt files and path to OpenAPI file. Caches responses. Depending on responses, generates ```SDK Reference``` and ```API Reference``` sections:
+Interactive. Prompts for a path to JavaScript files. Prompts for a path to an OpenAPI file. Caches responses. Depending on responses, generates ```SDK Reference``` and ```API Reference``` sections.
 
 ```shell
 documentation generate
 ```
 
-Non-interactive. Sections for ```SDK Reference``` and ```API Reference``` are not generated:
+Non-interactive. The```SDK Reference``` and ```API Reference``` sections are not generated.
 
 ```shell
 documentation generate -j false -o false
 ```
 
-Non-interactive. Generates ```SDK Reference``` based on contents of ```lib/js``` folder. The ```API Reference``` section is not generated:
+Non-interactive. Generates ```SDK Reference``` section, based on the contents of the ```lib/js``` folder. The ```API Reference``` section is not generated.
 
 ```shell
 documentation generate -j lib/js -o false
 ```
 
-Non-interactive. Generates ```API Reference``` based on contents of ```lib/service.yaml``` file. The ```SDK Reference``` section is not generated:
+Non-interactive. Generates ```API Reference``` section, based on the ```lib/service.yaml``` file. The ```SDK Reference``` section is not generated.
 
 ```shell
 documentation generate -j false -o lib/service.yaml
 ```
 
-Non-interactive. Generates ```API Reference``` based on contents of ```lib/service.yaml``` file. Also adds a ```Try Me``` page for the API. The ```SDK Reference``` section is not generated:
+Non-interactive. Generates ```API Reference``` section based on contents of ```lib/service.yaml``` file. Also adds a ```Try Me``` page for the API. The ```SDK Reference``` section is not generated.
 
 ```shell
 documentation generate -j false -o lib/service.yaml -t
