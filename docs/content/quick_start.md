@@ -59,6 +59,10 @@ As you modify your site, changes will be immediately reflected.
 
 ## Editing Your Site
 
+### Markdown
+
+You will be editing Markdown files. Markdown is a simple language for text formatting. A good guide for Markdown can be found [here](https://www.markdownguide.org/).
+
 ### Pages
 
 Markdown files (```*.md```) are stored it the ```docs/content``` folder. Each of these files corresponds to a page. You can add new pages by adding new Markdown files to the ```docs/content``` folder.
