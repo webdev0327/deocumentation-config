@@ -1,4 +1,4 @@
-## {{title}} 
+{{#if (isComponentExist data)}}## {{title}}
 
 {{#each data}}
 ### {{@key}} :id={{toLowerCase ../title}}{{toLowerCase @key}}
@@ -130,4 +130,9 @@
 {{/getResponse}}
 {{>separator}}
 {{/if}}
+{{#if (isParameters ../title)}}
+{{>o-parameters (parameterToParametersArray this)}}
+{{>separator}}
+{{/if}}
 {{/each}}
+{{/if}}

@@ -1,5 +1,15 @@
 {{#if parameters}}
 {{#getParameters parameters}}
+{{#if (isParametersExist refParameters)}}
+#### Links
+
+{{#with refParameters}}
+{{#each data}}
+* {{{oLink}}}
+{{/each}}
+
+{{/with}}
+{{/if}}
 {{#if (isParametersExist headerParameters)}}
 #### Headers
 

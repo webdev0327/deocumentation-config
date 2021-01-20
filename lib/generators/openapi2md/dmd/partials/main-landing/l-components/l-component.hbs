@@ -1,5 +1,7 @@
+{{#if (isComponentExist data)}}
 ### {{title}} 
 
 {{#each data}}* [{{@key}}](/content/api/components?id={{toLowerCase ../title}}{{@key}})
-{{/each}}   
+{{/each}}
 
+{{/if}}

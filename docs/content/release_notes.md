@@ -1,5 +1,19 @@
 # Release Notes
 
+## 2.1.0
+**New Features**
+
+* Added support for `ref` parameters when parsing OpenAPI.
+
+**Bug Fixes**
+
+* Corrected problem with `examples` field when parsing OpenAPI.
+
+**Other**
+
+* Added colors for logs.
+* Print stack trace to the console.
+
 ## 2.0.7
 **Bug fixes**
 

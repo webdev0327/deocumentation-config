@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const chalk = require('chalk');
 const inquirer = require('inquirer');
 const path = require('path');
 const { program } = require('commander');
@@ -55,7 +56,7 @@ function parseFlag(value) {
 program.version(pckg.version);
 
 program.on('--help', () => {
-	console.info('\nComplete documentation for this tool can be found at https://barchart.github.io/documentation-generator/#/');
+	console.info(chalk.yellow('\nComplete documentation for this tool can be found at https://barchart.github.io/documentation-generator/#/'));
 });
 
 program
@@ -152,7 +153,7 @@ program
 
 		if (steps.jsdoc) {
 			if (!sourcePaths[JSDOC_PATH] && !cachedPaths[JSDOC_PATH]) {
-				console.error('The path to the source code not found. JSDoc documentation skipped.');
+				console.error(chalk.red('The path to the source code not found. JSDoc documentation skipped.'));
 			} else {
 				const resolvedPath = resolvePath(JSDOC_PATH, sourcePaths, meta, cachedPaths);
 
@@ -164,21 +165,21 @@ program
 							packageName: meta.packageName
 						})
 						.then(() => {
-							console.info('JSDoc documentation generated.');
+							console.info(chalk.greenBright('JSDoc documentation generated.'));
 						})
 						.catch((err) => {
-							console.error('Generation of the JSDoc documentation has failed.');
-							console.error(err);
+							console.error(chalk.red('Generation of the JSDoc documentation has failed.'));
+							console.error(chalk.red(err.stac));
 						});
 				} else {
-					console.error('The path to the source code not found. JSDoc documentation skipped.');
+					console.error(chalk.red('The path to the source code not found. JSDoc documentation skipped.'));
 				}
 			}
 		}
 
 		if (steps.openapi) {
 			if (!sourcePaths[OPEN_API_PATH] && !cachedPaths[OPEN_API_PATH]) {
-				console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
+				console.error(chalk.red('The path to the OpenAPI file not found. Open API documentation skipped.'));
 			} else {
 				const resolvedPath = resolvePath(OPEN_API_PATH, sourcePaths, meta, cachedPaths);
 
@@ -197,17 +198,17 @@ program
 						}
 						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options)
 							.then(() => {
-								console.info('OpenAPI documentation generated.');
+								console.info(chalk.greenBright('OpenAPI documentation generated.'));
 							})
 							.catch((err) => {
-								console.error('Generation of the OpenAPI documentation has failed.');
-								console.error(err.toString());
+								console.error(chalk.red('Generation of the OpenAPI documentation has failed.'));
+								console.error(chalk.red(err.stack));
 							});
 					} else {
-						console.error('The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.');
+						console.error(chalk.red('The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.'));
 					}
 				} else {
-					console.error('The path to the OpenAPI file not found. Open API documentation skipped.');
+					console.error(chalk.red('The path to the OpenAPI file not found. Open API documentation skipped.'));
 				}
 			}
 		}
@@ -226,9 +227,9 @@ program
 		if (isReleasesExist && isReleaseNotesExist) {
 			templates.registerPartials();
 			releases.generateReleaseNotes(docsFolder);
-			console.info('Release notes was updated');
+			console.info(chalk.greenBright('Release notes was updated'));
 		} else {
-			console.error(`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(docsFolder, 'content', 'releases')} ] folder doesn't exist`);
+			console.error(chalk.red(`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(docsFolder, 'content', 'releases')} ] folder doesn't exist`));
 		}
 	});
 
@@ -256,12 +257,12 @@ program
 	.action(async (args) => {
 		if (args.all) {
 			cache.clear();
-			console.info('Cache was cleared');
+			console.info(chalk.greenBright('Cache was cleared'));
 		} else {
 			const meta = await getMeta();
 
 			cache.delete(meta.name);
-			console.info(`Cache was cleared for package [ ${meta.name} ]`);
+			console.info(chalk.greenBright(`Cache was cleared for package [ ${meta.name} ]`));
 		}
 	});
 
@@ -366,7 +367,7 @@ function getMetaFromPackage(packagePath, error = false) {
  * @param {String} error - Error message
  */
 function exit(error) {
-	console.error(error);
+	console.error(chalk.red(error));
 	process.exit(1);
 }
 
