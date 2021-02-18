@@ -27,9 +27,9 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
 
 These Barchart products were documented using this tool; the sites are hosted on [GitHub Pages](https://pages.github.com/):
 
-* [Barchart Market Data SDK](https://barchart.github.io/marketdata-api-js/#/)
-* [Barchart Alert Service SDK](https://barchart.github.io/alerts-client-js/#/)
-* [Barchart Watchlist Service SDK](https://barchart.github.io/watchlist-client-js/#/)
+* [Barchart Market Data SDK](https://docs.barchart.com/marketdata-api-js/#/)
+* [Barchart Alerting Service SDK](https://docs.barchart.com/alerts/#/)
+* [Barchart Watchlist Service SDK](https://docs.barchart.com/watchlist/#/)
 
 ### Usage Guide
 
