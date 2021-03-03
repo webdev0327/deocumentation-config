@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.1.1
+**Bug Fixes**
+
+* Fixed initialization of `docs` folder for `generate` command. 
+
+
 ## 2.1.0
 **New Features**
 
