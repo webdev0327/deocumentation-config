@@ -34,6 +34,7 @@
 		"@babel/preset-env": "^7.10.4",
 		"@babel/preset-typescript": "^7.10.4",
 		"array-back": "^4.0.1",
+		"axios": "^0.21.1",
 		"cache-point": "^2.0.0",
 		"chalk": "^4.1.0",
 		"commander": "^5.1.0",

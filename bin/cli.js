@@ -4,14 +4,20 @@ const inquirer = require('inquirer');
 const path = require('path');
 const { program } = require('commander');
 
-const Cache = require('../lib/cache');
+const Cache = require('../lib/common/cache');
 const docsify = require('../lib/docsify');
-const fs = require('../lib/fsSafe');
-const jsdoc = require('../lib/generators/jsdoc');
-const openapi2md = require('../lib/generators/openapi');
-const pckg = require('./../package.json');
+const fs = require('../lib/common/fsSafe');
+const JSDocGenerator = require('../lib/generators/jsdoc/JSDocGenerator');
+const OpenAPIGenerator = require('../lib/generators/openapi/OpenAPIGenerator');
+const Options = require('../lib/common/options/Options');
+const pkgData = require('./../package.json');
+const ProjectMeta = require('../lib/common/projectMeta/ProjectMeta');
 const releases = require('../lib/releases');
-const templates = require('../lib/templates');
+
+// commands
+const clearCacheCommand = require('../lib/commands/clearCache');
+const generateReleasesCommand = require('../lib/commands/generateReleases');
+const initDocsCommand = require('../lib/commands/initDocs');
 
 const OPEN_API_PATH = 'openapiPath';
 const JSDOC_PATH = 'jsdocPath';
@@ -53,7 +59,7 @@ function parseFlag(value) {
 	return value;
 }
 
-program.version(pckg.version);
+program.version(pkgData.version);
 
 program.on('--help', () => {
 	console.info(chalk.yellow('\nComplete documentation for this tool can be found at https://barchart.github.io/documentation-generator/#/'));
@@ -72,8 +78,13 @@ program
 			[OPEN_API_PATH]: null
 		};
 
-		const meta = await getMeta();
+		const meta = await ProjectMeta.getMeta(executionPath);
 		const cachedPaths = cache.get(meta.name);
+		const options = new Options();
+
+		options.docsFolder = docsFolder;
+		options.name = meta.name;
+		options.projectName = meta.packageName;
 
 		docsify.initialize(docsFolder, meta);
 
@@ -155,25 +166,16 @@ program
 			if (!sourcePaths[JSDOC_PATH] && !cachedPaths[JSDOC_PATH]) {
 				console.error(chalk.red('The path to the source code not found. JSDoc documentation skipped.'));
 			} else {
-				const resolvedPath = resolvePath(JSDOC_PATH, sourcePaths, meta, cachedPaths);
-
-				if (resolvedPath.isSourceExist) {
-					await jsdoc
-						.generateDocumentation({
-							docsFolder: docsFolder,
-							jsdocPath: resolvedPath.path,
-							packageName: meta.packageName
-						})
-						.then(() => {
-							console.info(chalk.greenBright('JSDoc documentation generated.'));
-						})
-						.catch((err) => {
-							console.error(chalk.red('Generation of the JSDoc documentation has failed.'));
-							console.error(chalk.red(err.stac));
-						});
-				} else {
-					console.error(chalk.red('The path to the source code not found. JSDoc documentation skipped.'));
-				}
+				options.jsdocPath = sourcePaths.jsdocPath;
+				
+				const jsdocGenerator = new JSDocGenerator(options);
+				
+				await jsdocGenerator.generate().then(() => {
+					console.info(chalk.greenBright('JSDoc documentation generated.'));
+				}).catch((err) => {
+					console.error(chalk.red('Generation of the JSDoc documentation has failed.'));
+					console.error(chalk.red(err.stack));
+				});
 			}
 		}
 
@@ -181,35 +183,20 @@ program
 			if (!sourcePaths[OPEN_API_PATH] && !cachedPaths[OPEN_API_PATH]) {
 				console.error(chalk.red('The path to the OpenAPI file not found. Open API documentation skipped.'));
 			} else {
-				const resolvedPath = resolvePath(OPEN_API_PATH, sourcePaths, meta, cachedPaths);
-
-				if (resolvedPath.isSourceExist) {
-					const options = {};
-					const splitPath = resolvedPath.path.split('/');
-					const file = splitPath.pop();
-					const splitFile = file.split('.');
-					const fileName = splitFile[0];
-					const fileExtension = splitFile[1];
-					if (fileExtension && (fileExtension.toLowerCase() === 'yaml' || fileExtension.toLowerCase() === 'yml' || fileExtension.toLowerCase() === 'json')) {
-						options.filename = fileName;
-						options.fileExtension = fileExtension;
-						if (args.tryme) {
-							options.tryme = true;
-						}
-						await openapi2md.generateDocumentation(resolvedPath.path, docsFolder, options)
-							.then(() => {
-								console.info(chalk.greenBright('OpenAPI documentation generated.'));
-							})
-							.catch((err) => {
-								console.error(chalk.red('Generation of the OpenAPI documentation has failed.'));
-								console.error(chalk.red(err.stack));
-							});
-					} else {
-						console.error(chalk.red('The CLI supports only following file extensions: [json, yaml, yml]. Open API documentation skipped.'));
-					}
-				} else {
-					console.error(chalk.red('The path to the OpenAPI file not found. Open API documentation skipped.'));
+				if (args.tryme) {
+					options.tryme = true;
 				}
+				
+				options.openApiPath = sourcePaths.openapiPath;
+				
+				const openApiGenerator = new OpenAPIGenerator(options);
+				
+				await openApiGenerator.generate().then(() => {
+					console.info(chalk.greenBright('OpenAPI documentation generated.'));
+				}).catch((err) => {
+					console.error(chalk.red('Generation of the OpenAPI documentation has failed.'));
+					console.error(chalk.red(err.stack));
+				});
 			}
 		}
 
@@ -221,26 +208,14 @@ program
 	.command('releases')
 	.description('rebuilds release notes')
 	.action(async (args) => {
-		const isReleasesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'releases'));
-		const isReleaseNotesExist = fs.existsSync(path.resolve(docsFolder, 'content', 'release_notes.md'));
-
-		if (isReleasesExist && isReleaseNotesExist) {
-			templates.registerPartials();
-			releases.generateReleaseNotes(docsFolder);
-			console.info(chalk.greenBright('Release notes was updated'));
-		} else {
-			console.error(chalk.red(`file [ ${path.resolve(docsFolder, 'content', 'release_notes.md')} ] or [ ${path.resolve(docsFolder, 'content', 'releases')} ] folder doesn't exist`));
-		}
+		generateReleasesCommand();
 	});
 
 program
 	.command('init')
 	.description('creates docs folder and suggested page skeleton')
 	.action(async (args) => {
-		const meta = await getMeta();
-
-		docsify.initialize(docsFolder, meta);
-		releases.generateReleaseNotes(docsFolder);
+		await initDocsCommand();
 	});
 
 program
@@ -255,40 +230,8 @@ program
 	.description('clears saved data (e.g. the path to your code and the path to your OpenAPI file)')
 	.option('-a, --all', 'clears saved data for all packages')
 	.action(async (args) => {
-		if (args.all) {
-			cache.clear();
-			console.info(chalk.greenBright('Cache was cleared'));
-		} else {
-			const meta = await getMeta();
-
-			cache.delete(meta.name);
-			console.info(chalk.greenBright(`Cache was cleared for package [ ${meta.name} ]`));
-		}
+		return clearCacheCommand(args);
 	});
-
-async function getMeta() {
-	let packageJSONFile = path.resolve(executionPath, 'package.json');
-
-	let meta = getMetaFromPackage(packageJSONFile);
-
-	if (meta === undefined) {
-		const answer = await inquirer.prompt({
-			type: 'input',
-			name: 'pkg',
-			message: `Enter the path to the package.json file (${executionPath}/):`
-		});
-
-		if (!answer.pkg) {
-			exit('package.json not found');
-		}
-
-		packageJSONFile = path.resolve(executionPath, answer.pkg);
-
-		meta = getMetaFromPackage(packageJSONFile, true);
-	}
-
-	return meta;
-}
 
 /**
  * Returns a path to the source and is the source exists
@@ -301,12 +244,19 @@ async function getMeta() {
  */
 function resolvePath(source, sourcePaths, meta, cachedPaths) {
 	let sourcePath = '';
-
 	let isSourceExist = false;
+	const isUrlPath = urlRegex.test(sourcePaths[OPEN_API_PATH]);
 
 	if (sourcePaths[source]) {
-		const insertPath = path.resolve(executionPath, sourcePaths[source]);
-		isSourceExist = fs.existsSync(insertPath);
+		let insertPath = path.resolve(executionPath, sourcePaths[source]);
+		
+		if (isUrlPath) {
+			insertPath = sourcePaths[source];
+			isSourceExist = true;
+		} else {
+			isSourceExist = fs.existsSync(insertPath);
+		}
+		
 		if (isSourceExist) {
 			sourcePath = insertPath;
 			cachedPaths[source] = insertPath;
@@ -315,7 +265,12 @@ function resolvePath(source, sourcePaths, meta, cachedPaths) {
 	}
 
 	if (!sourcePaths[source] && cachedPaths[source]) {
-		isSourceExist = fs.existsSync(cachedPaths[source]);
+		if (isUrlPath) {
+			isSourceExist = true;
+		} else {
+			isSourceExist = fs.existsSync(cachedPaths[source]);
+		}
+		
 		if (!isSourceExist) {
 			delete cachedPaths[source];
 			cache.add(meta.name, cachedPaths);
@@ -324,51 +279,7 @@ function resolvePath(source, sourcePaths, meta, cachedPaths) {
 		}
 	}
 
-	return { path: sourcePath, isSourceExist: isSourceExist };
-}
-
-/**
- * Gets meta data from package.json.
- *
- * @param {String} packagePath - Path to the package.json file
- * @param {Boolean} error - stop execution if error handled
- * @returns {{name: string, description: *, repository: *, version: *}|undefined}
- */
-function getMetaFromPackage(packagePath, error = false) {
-	const isPackageJSON = fs.existsSync(packagePath);
-
-	if (!isPackageJSON) {
-		if (error) {
-			exit('package.json not found');
-		} else {
-			return {
-				name: 'Your Project Name',
-				packageName: 'yourprojectname',
-				version: '',
-				description: '',
-				repository: ''
-			};
-		}
-	}
-
-	const pkg = require(packagePath);
-
-	return {
-		name: pkg.name,
-		packageName: pkg.name,
-		version: pkg.version,
-		description: pkg.description,
-		repository: pkg.repository ? pkg.repository.url : ''
-	};
-}
-
-/**
- *
- * @param {String} error - Error message
- */
-function exit(error) {
-	console.error(chalk.red(error));
-	process.exit(1);
+	return { path: sourcePath, isSourceExist: isSourceExist, isUrl: isUrlPath };
 }
 
 /**
@@ -413,5 +324,10 @@ function updateSidebars(docFolder) {
 		}
 	}
 }
+
+process.on('unhandledRejection', (error) => {
+	console.error(chalk.red('Something going wrong: ', error.message));
+	console.error(chalk.red('Stack: ', error.stack));
+});
 
 program.parse(process.argv);
