@@ -1,5 +1,19 @@
 # Release Notes
 
+## 3.0.0
+**New Features**
+
+* Added support of generating OpenAPI documentation from url to an OpenAPI file.
+
+**Technical Enhancements**
+
+* Refactored code of generators.
+
+**Bug Fixes**
+
+* Components no longer appear in the sidebar if there are no components in the file.
+* `components.md` no longer appear in the `content/api` folder  if there are no components in the file.
+
 ## 2.1.1
 **Bug Fixes**
 
