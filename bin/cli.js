@@ -234,55 +234,6 @@ program
 	});
 
 /**
- * Returns a path to the source and is the source exists
- *
- * @param source - a source
- * @param sourcePaths - paths for sources
- * @param meta - a meta data of a package
- * @param cachedPaths - cached paths for sources
- * @returns {{path: string, isSourceExist: boolean}}
- */
-function resolvePath(source, sourcePaths, meta, cachedPaths) {
-	let sourcePath = '';
-	let isSourceExist = false;
-	const isUrlPath = urlRegex.test(sourcePaths[OPEN_API_PATH]);
-
-	if (sourcePaths[source]) {
-		let insertPath = path.resolve(executionPath, sourcePaths[source]);
-		
-		if (isUrlPath) {
-			insertPath = sourcePaths[source];
-			isSourceExist = true;
-		} else {
-			isSourceExist = fs.existsSync(insertPath);
-		}
-		
-		if (isSourceExist) {
-			sourcePath = insertPath;
-			cachedPaths[source] = insertPath;
-			cache.add(meta.name, cachedPaths);
-		}
-	}
-
-	if (!sourcePaths[source] && cachedPaths[source]) {
-		if (isUrlPath) {
-			isSourceExist = true;
-		} else {
-			isSourceExist = fs.existsSync(cachedPaths[source]);
-		}
-		
-		if (!isSourceExist) {
-			delete cachedPaths[source];
-			cache.add(meta.name, cachedPaths);
-		} else {
-			sourcePath = cachedPaths[source];
-		}
-	}
-
-	return { path: sourcePath, isSourceExist: isSourceExist, isUrl: isUrlPath };
-}
-
-/**
  * Copy sidebar to other folders.
  *
  * @param {string} docFolder - a path to the docs folder
