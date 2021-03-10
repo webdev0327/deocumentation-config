@@ -21,7 +21,7 @@ The ```generate``` command is path sensitvie. It is also interactive, by default
 | Flag            | Alias    | Argument                    | Description                                                                                     |
 | :-------------- | :------: | :-------------------------: | :---------------------------------------------------------------------------------------------- |
 | ```--jsdoc```   | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory. |
-| ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file.      |
+| ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path or url to OpenAPI file.      |
 | ```--tryme```   | ```-t``` | none                        | Adds an interactive "try me" page for your web service API.                                     |
 
 The ```clear-cache``` command accepts the following flag:
@@ -34,7 +34,7 @@ The ```clear-cache``` command accepts the following flag:
 
 ## Examples
 
-Interactive. Prompts for a path to JavaScript files. Prompts for a path to an OpenAPI file. Caches responses. Depending on responses, generates ```SDK Reference``` and ```API Reference``` sections.
+Interactive. Prompts for a path to JavaScript files. Prompts for a path (or url) to an OpenAPI file. Caches responses. Depending on responses, generates ```SDK Reference``` and ```API Reference``` sections.
 
 ```shell
 documentation generate
@@ -62,4 +62,10 @@ Non-interactive. Generates ```API Reference``` section based on contents of ```l
 
 ```shell
 documentation generate -j false -o lib/service.yaml -t
+```
+
+Non-interactive. Generates ```API Reference``` section based on contents of ```https://example.com/service.yaml``` file. The ```SDK Reference``` section is not generated.
+
+```shell
+documentation generate -j false -o https://example.com/service.yaml
 ```
