@@ -1,5 +1,15 @@
 # Release Notes
 
+## 3.0.1
+**Bug Fixes**
+
+* `<a>` tags are now converted to markdown links for `description` fields.
+* `description` fields are no longer merged into one line if the `|` (pipe) symbol was used at the beginning of the line.
+
+**Technical Enhancements**
+
+* Moved code from `cli.js` to the `lib/commands` folder.
+
 ## 3.0.0
 **New Features**
 
