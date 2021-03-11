@@ -19,7 +19,7 @@ A **command-line tool** that _quickly_ generates _easy-to-maintain_ websites for
   * extracts [JSDoc](https://en.wikipedia.org/wiki/JSDoc) comments, and
   * emits markdown pages.
 * Auto-generates API documentation for your web service, as follows:
-  * parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) file, and
+  * parses your [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification) file (or URL), and
   * emits markdown pages.
 * Easy to deploy and maintain using [GitHub Pages](https://pages.github.com/).
 
