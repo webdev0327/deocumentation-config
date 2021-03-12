@@ -1,5 +1,11 @@
 # Release Notes
 
+## 3.0.2
+**Bug Fixes**
+
+* Fixed `init` command. 
+
+
 ## 3.0.1
 **Bug Fixes**
 
