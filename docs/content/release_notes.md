@@ -1,5 +1,12 @@
 # Release Notes
 
+## 3.0.3
+**Bug Fixes**
+
+* Fixed conversion `<a>` HTML tags in path descriptions for OpenAPI file.
+* Fixed escaping `|` pipe symbol for the description fields for OpenAPI file.
+
+
 ## 3.0.2
 **Bug Fixes**
 
