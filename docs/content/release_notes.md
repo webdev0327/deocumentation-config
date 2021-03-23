@@ -1,10 +1,21 @@
 # Release Notes
 
+## 3.0.4
+**Bug Fixes**
+
+* Changed the HTML to MD parser for OpenAPI documentation.
+* Removed escaping of HTML tag in the path descriptions for OpenAPI file.
+
+**Technical Enhancements**
+
+* Added custom HTML to MD parser.
+
+
 ## 3.0.3
 **Bug Fixes**
 
 * Fixed conversion `<a>` HTML tags in path descriptions for OpenAPI file.
-* Fixed escaping `|` pipe symbol for the description fields for OpenAPI file.
+* Fixed escaping `|` (pipe) symbols in the description fields for OpenAPI file.
 
 
 ## 3.0.2

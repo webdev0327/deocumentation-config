@@ -37,6 +37,7 @@
 		"axios": "^0.21.1",
 		"cache-point": "^2.0.0",
 		"chalk": "^4.1.0",
+		"cheerio": "^1.0.0-rc.5",
 		"commander": "^5.1.0",
 		"common-sequence": "^2.0.0",
 		"compare-versions": "^3.6.0",
