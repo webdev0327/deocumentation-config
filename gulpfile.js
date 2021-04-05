@@ -29,7 +29,7 @@ gulp.task('bump-choice', (cb) => {
 		{
 			type: 'list',
 			name: 'bump',
-			message: 'What type of bump would you like to do?',
+			message: `What type of bump would you like to do? (Current: ${getVersionFromPackage()})`,
 			choices: ['patch', 'minor', 'major']
 		},
 		(res) => {
