@@ -1,5 +1,10 @@
 # Release Notes
 
+## 3.0.5
+**Bug Fixes**
+
+* Fixed a bug due to which HTML tags in OpenAPI description fields were forced to lower case.
+
 ## 3.0.4
 **Bug Fixes**
 
