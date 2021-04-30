@@ -1,5 +1,10 @@
 # Release Notes
 
+## 3.0.6
+**Bug Fixes**
+
+* Fixed a bug where the **File** and **Import** sections were ignored when generating JSDocs documentation.
+
 ## 3.0.5
 **Bug Fixes**
 
