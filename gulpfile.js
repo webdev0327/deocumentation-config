@@ -14,6 +14,14 @@ function getVersionFromPackage() {
 	return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 }
 
+function getGithubLink() {
+	const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+	
+	const link = pkg.homepage.replace(/#.*/g, '');
+
+	return `Project Github: ${link}`;
+}
+
 gulp.task('ensure-clean-working-directory', (cb) => {
 	gitStatus((err, status) => {
 		if ((err, !status.clean)) {
@@ -93,6 +101,12 @@ gulp.task('execute-tests', () => {
 	return gulp.src(['test/specs/**/*.js']).pipe(jasmine());
 });
 
+gulp.task('print-github', () => {
+	return Promise.resolve().then(() => {
+		console.info(getGithubLink());
+	});
+});
+
 gulp.task('release', gulp.series(
 	'ensure-clean-working-directory',
 	'execute-tests',
@@ -101,7 +115,8 @@ gulp.task('release', gulp.series(
 	'embed-version',
 	'commit-changes',
 	'push-changes',
-	'create-tag'
+	'create-tag',
+	'print-github'
 ));
 
 gulp.task('lint', () => {
