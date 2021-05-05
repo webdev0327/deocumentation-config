@@ -14,12 +14,12 @@ function getVersionFromPackage() {
 	return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 }
 
-function getGithubLink() {
+function getGitHubLink() {
 	const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 	
 	const link = pkg.homepage.replace(/#.*/g, '');
 
-	return `Project Github: ${link}`;
+	return `Project GitHub: ${link}`;
 }
 
 gulp.task('ensure-clean-working-directory', (cb) => {
@@ -103,7 +103,7 @@ gulp.task('execute-tests', () => {
 
 gulp.task('print-github', () => {
 	return Promise.resolve().then(() => {
-		console.info(getGithubLink());
+		console.info(getGitHubLink());
 	});
 });
 
