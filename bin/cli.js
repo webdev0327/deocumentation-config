@@ -5,6 +5,7 @@ const { program } = require('commander');
 const pkgData = require('./../package.json');
 
 // commands
+const cacheManagerCommand = require('../lib/commands/cacheManager');
 const clearCacheCommand = require('../lib/commands/clearCache');
 const generateDocsCommand = require('../lib/commands/generateDocs');
 const generateReleasesCommand = require('../lib/commands/generateReleases');
@@ -31,6 +32,8 @@ function parseFlag(value) {
 
 program.version(pkgData.version);
 
+console.info(chalk.bgGreenBright(chalk.whiteBright(` Barchart Documentation Generator v${pkgData.version}`)));
+
 program.on('--help', () => {
 	console.info(chalk.yellow('\nComplete documentation for this tool can be found at https://barchart.github.io/documentation-generator/#/'));
 });
@@ -41,6 +44,7 @@ program
 	.option('-o, --openapi [string | boolean]', 'rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory', parseFlag)
 	.option('-j, --jsdoc [string | boolean]', 'rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file', parseFlag)
 	.option('-t, --tryme', 'adds an interactive "try me" page for your web service API')
+	.option('-r, --releases [string]', 'path to the folder with release notes.')
 	.action(async (args) => {
 		await generateDocsCommand(args);
 	});
@@ -49,7 +53,9 @@ program
 	.command('releases')
 	.description('rebuilds release notes')
 	.action(async (args) => {
-		generateReleasesCommand();
+		await generateReleasesCommand().catch((err) => {
+			chalk.red(err);
+		});
 	});
 
 program
@@ -72,6 +78,13 @@ program
 	.option('-a, --all', 'clears saved data for all packages')
 	.action(async (args) => {
 		await clearCacheCommand(args);
+	});
+
+program
+	.command('cache')
+	.description('cache manager for current package')
+	.action(async (args) => {
+		await cacheManagerCommand(args);
 	});
 
 process.on('unhandledRejection', (error) => {

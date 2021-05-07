@@ -12,6 +12,7 @@ documentation [command] [flags]
 | ```serve```       | No          | No                  | Runs a local web server from the ```docs``` folder.                                                               |
 | ```generate```    | Depends     | Optional            | Rebuilds auto-generated content (e.g. SDK Reference section, API Reference section, sidebars, and release notes). |
 | ```clear-cache``` | No          | Optional            | Clears saved data (e.g. forgets the path to your code files and the path to your OpenAPI file).                   |
+| ```cache``` | Yes          | No            | Provides an interface to clear saved data for current package.                   |
 
 ## Flags
 
@@ -23,6 +24,7 @@ The ```generate``` command is path sensitvie. It is also interactive, by default
 | ```--jsdoc```   | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory. |
 | ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path or url to OpenAPI file.      |
 | ```--tryme```   | ```-t``` | none                        | Adds an interactive "try me" page for your web service API.                                     |
+| ```--releases```   | ```-r``` | `string`                        | Path to the folder with release notes.                                     |
 
 The ```clear-cache``` command accepts the following flag:
 
@@ -50,6 +52,12 @@ Non-interactive. Generates ```SDK Reference``` section, based on the contents of
 
 ```shell
 documentation generate -j lib/js -o false
+```
+
+Non-interactive. Generates ```SDK Reference``` section, based on the contents of the ```lib/js``` folder. The ```API Reference``` section is not generated. Release notes would be generated from ```lib/releases``` folder.
+
+```shell
+documentation generate -j lib/js -o false -r lib/releases
 ```
 
 Non-interactive. Generates ```API Reference``` section, based on the ```lib/service.yaml``` file. The ```SDK Reference``` section is not generated.
