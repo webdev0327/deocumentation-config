@@ -1,6 +1,6 @@
 # Release Notes
 
-## 3.0.7
+## 3.1.0
 **New Features**
 
 * Added a possibility to provide a path to the folder with release notes.
