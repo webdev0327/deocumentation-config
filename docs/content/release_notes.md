@@ -1,5 +1,12 @@
 # Release Notes
 
+## 3.0.7
+**New Features**
+
+* Added a possibility to provide a path to the folder with release notes.
+* Added flag `-r` for `generate` command to provide a path to the folder with release notes.
+* Added `cache` command to manage the cached path for current project.
+
 ## 3.0.6
 **Bug Fixes**
 
