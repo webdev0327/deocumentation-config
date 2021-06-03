@@ -1,5 +1,10 @@
 # Release Notes
 
+## 3.2.0
+**New Features**
+
+* Added support of `oneOf`, `anyOf`, and `allOf` properties of OpenAPI specification.
+
 ## 3.1.0
 **New Features**
 

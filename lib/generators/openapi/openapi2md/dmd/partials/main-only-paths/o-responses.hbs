@@ -8,6 +8,9 @@
 
 > {{description}}
 {{/if}}
+{{#if this.of}}
+{{>o-response-of}}
+{{/if}}
 {{#if (isParametersExist headers)}}
 
 **Response headers**:

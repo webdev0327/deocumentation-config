@@ -1,15 +1,15 @@
-{{#if requestBody}}
-#### Request Body
-{{#getRequestBody requestBody true}}
-{{#each this}}
-{{#if of}}
-{{>o-requestBody-of}}
+{{#each this.of}}
+{{#if data}}
+**{{this.name}}:**
+{{#each data}}
+{{#if oLink}}
+
+- {{oLink}}
 {{/if}}
+{{#if headers}}
 {{#if (isRootExist this)}}
     
-**Content Type**: {{@key}}
-
-**Type**: {{{root.type}}}
+* **Type**: {{{root.type}}}
 
 {{#if (isParametersExist this)}}
 {{>headerRow}}
@@ -25,7 +25,8 @@
 ```
 {{/if}}
 {{/if}}
+{{/if}}
 {{/each}}
 
-{{/getRequestBody}}
 {{/if}}
+{{/each}}
