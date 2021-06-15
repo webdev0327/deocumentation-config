@@ -1,5 +1,10 @@
 # Release Notes
 
+## 3.2.1
+**Bug Fixes**
+
+* Fixed a bug in OpenAPI when the array type was set for a schema with `$ref`.
+
 ## 3.2.0
 **New Features**
 
