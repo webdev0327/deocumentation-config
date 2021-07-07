@@ -1,13 +1,15 @@
 # Release Notes
 
+## 3.2.3
+**Bug Fixes**
+
+* Fixed `documentation generate` command for Windows operating systems.
+
 ## 3.2.2
 **Bug Fixes**
 
 * Fixed `documentation init` command for Windows operating systems.
-
-**Technical Enhancements**
-
-* Added example section for non-JSON responses.
+* Updated OpenAPI document generation logic to include an "Example" section when responses are not JSON.
 
 ## 3.2.1
 **Bug Fixes**
