@@ -1,5 +1,14 @@
 # Release Notes
 
+## 3.2.2
+**Bug Fixes**
+
+* Fixed `documentation init` command for Windows operating systems.
+
+**Technical Enhancements**
+
+* Added example section for non-JSON responses.
+
 ## 3.2.1
 **Bug Fixes**
 
