@@ -1,4 +1,4 @@
-# @barchart/documentation-generator <small>3.2.3</small>
+# @barchart/documentation-generator <small>3.3.0</small>
 
 > A command-line tool that generates technical documentation websites (like this one)
 
