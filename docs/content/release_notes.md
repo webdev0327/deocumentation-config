@@ -1,5 +1,16 @@
 # Release Notes
 
+## 3.3.0
+**New Features**
+
+* Added new flag to ignore OpenAPI optional fields in examples.
+* Added support of Enum for OpenAPI components.
+
+**Bug Fixes**
+
+* Fixed a bug in the OpenAPI generator that led to the empty `required` property for fields with references to other components.
+
+
 ## 3.2.3
 **Bug Fixes**
 

@@ -26,7 +26,7 @@ function parseFlag(value) {
 	if (value === 'false') {
 		return false;
 	}
-	
+
 	return value;
 }
 
@@ -42,6 +42,7 @@ program
 	.command('generate')
 	.description('rebuilds auto-generated content (e.g. SDK Reference section, API Reference section, sidebars, and release notes)')
 	.option('-o, --openapi [string | boolean]', 'rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory', parseFlag)
+	.option('-O, --ignoreOptional', 'ignores optional fields for OpenApi examples', parseFlag)
 	.option('-j, --jsdoc [string | boolean]', 'rebuilds your API Reference (for web services). Argument is relative path to OpenAPI file', parseFlag)
 	.option('-t, --tryme', 'adds an interactive "try me" page for your web service API')
 	.option('-r, --releases [string]', 'path to the folder with release notes.')

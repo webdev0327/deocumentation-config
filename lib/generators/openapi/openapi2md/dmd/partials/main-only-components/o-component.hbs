@@ -9,7 +9,7 @@
 
 **Type**: {{type}}
 {{#if header}}
-    
+
 {{#with header}}
 #### Headers
 {{>headerRow}}
@@ -36,7 +36,7 @@
 {{/with}}
 {{/if}}
 {{#if urls}}
-    
+
 {{#with urls}}
 #### URLs
 {{#each this}}
@@ -49,14 +49,14 @@
 
 #### {{title}} :id={{id}}
 {{#if scopes}}
-    
+
 ##### Scopes:
 {{#each scopes}}
 - **{{title}}**: {{description}}
 {{/each}}
 {{/if}}
 {{#if isURL}}
-    
+
 ##### URLs:
 {{#if authorizationUrl}}
 - **Authorization URL**: {{authorizationUrl}}
@@ -76,19 +76,32 @@
 {{#if (isSchema ../title)}}
 {{#getSchema this}}
 **Type**: {{{root.type}}}
+{{#if root.description}}
+
+>{{root.description}}
+{{/if}}
 {{#if (isParametersExist this)}}
-    
+
 {{>headerRow}}
 
 {{>dataRows}}
 
+{{/if}}
+{{#if root.enum}}
+
+**Enum values**:
+
+```json
+{{{root.enum}}}
+```
+{{/if}}
 {{#if root.example}}
+
 **Example**:
 
 ```json
 {{{root.example}}}
 ```
-{{/if}}
 {{/if}}
 {{/getSchema}}
 {{>separator}}

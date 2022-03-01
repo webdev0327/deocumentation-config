@@ -19,12 +19,13 @@ documentation [command] [flags]
 
 The ```generate``` command is path sensitvie. It is also interactive, by default. However, the following flags can be used to suppress interactive prompts:
 
-| Flag            | Alias    | Argument                    | Description                                                                                     |
-| :-------------- | :------: | :-------------------------: | :---------------------------------------------------------------------------------------------- |
-| ```--jsdoc```   | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory. |
-| ```--openapi``` | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path or url to OpenAPI file.      |
-| ```--tryme```   | ```-t``` | none                        | Adds an interactive "try me" page for your web service API.                                     |
-| ```--releases```   | ```-r``` | `string`                        | Path to the folder with release notes.                                     |
+| Flag                     |  Alias   |          Argument           | Description                                                                                       |
+|:-------------------------|:--------:|:---------------------------:|:--------------------------------------------------------------------------------------------------|
+| ```--jsdoc```            | ```-j``` | ```string``` or ```false``` | Rebuilds your SDK Reference (for JavaScript). Argument is relative path to your code directory.   |
+| ```--openapi```          | ```-o``` | ```string``` or ```false``` | Rebuilds your API Reference (for web services). Argument is relative path or url to OpenAPI file. |
+| ```--ignoreOptional```   | ```-O``` |            none             | Ignores optional fields for OpenApi examples                                                      |
+| ```--tryme```            | ```-t``` |            none             | Adds an interactive "try me" page for your web service API.                                       |
+| ```--releases```         | ```-r``` |          `string`           | Path to the folder with release notes.                                                            |
 
 The ```clear-cache``` command accepts the following flag:
 
@@ -76,4 +77,10 @@ Non-interactive. Generates ```API Reference``` section based on contents of ```h
 
 ```shell
 documentation generate -j false -o https://example.com/service.yaml
+```
+
+Non-interactive. Generates ```API Reference``` section, based on the ```lib/service.yaml``` file. Ignores optional fields in examples. The ```SDK Reference``` section is not generated.
+
+```shell
+documentation generate -j false -o lib/service.yaml -O
 ```
