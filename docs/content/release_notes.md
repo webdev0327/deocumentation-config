@@ -1,5 +1,11 @@
 # Release Notes
 
+## 3.3.1
+**Bug Fixes**
+
+* Fixed a bug in the OpenAPI generator that led to broken URL's for responses or requests with `oneOf`, `anyOf`, `allOf` fields.
+
+
 ## 3.3.0
 **New Features**
 
