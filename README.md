@@ -49,9 +49,13 @@ documentation init
 documentation serve
 ```
 
+### Compatibility
+
+This tool should be compatible with Node.js version 14. This tool has not been tested with Node.js version 16.
+
 ### Package Managers
 
-This tool is a *public* module on NPM, named [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator).
+This tool is a *public* package on NPM, named [@barchart/documentation-generator](https://www.npmjs.com/package/@barchart/documentation-generator).
 
 ### License
 
