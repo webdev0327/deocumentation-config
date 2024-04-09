@@ -51,7 +51,7 @@ documentation serve
 
 ### Compatibility
 
-This tool should be compatible with Node.js version 14. This tool has not been tested with Node.js version 16.
+This tool should be compatible with Node.js version 20.
 
 ### Package Managers
 
