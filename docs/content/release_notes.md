@@ -1,5 +1,15 @@
 # Release Notes
 
+## 3.3.2
+**Technical Enhancements**
+
+* Updated dependencies implicitly.
+
+**Bug Fixes**
+
+* Corrected inability to run on Node.js versions above 14.
+
+
 ## 3.3.1
 **Bug Fixes**
 
